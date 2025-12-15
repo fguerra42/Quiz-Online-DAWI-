@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Quiz Interativo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Cabeçalho Principal -->
+        <header class="cabecalhoQuiz">
+            <div class="conteudoCabecalho">
+                <h1>🎓 Quiz - Teste Seus Conhecimentos</h1>
+
+                <!-- Seção de Usuário -->
+                <div class="secaoUsuario" id="secaoUsuario">
+                    <div class="infoUsuario" id="infoUsuario" style="display: none;">
+                        <span class="nomeUsuario" id="nomeUsuario"></span>
+                        <span class="pontuacaoUsuario">Pontos: <strong id="pontosTotais">0</strong></span>
+                        <span class="recorteUsuario">Recorde: <strong id="recordeUsuario">0</strong></span>
+                        <button class="botaoSair" onclick="fazerLogout()">Sair</button>
+                    </div>
+                    <div class="botoesBemVindo" id="botoesBemVindo">
+                        <a href="login.html" class="botaoLink">Login</a>
+                        <a href="registro.html" class="botaoLink">Registro</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações do Quiz -->
+            <div class="infoHeader">
+                <span class="exibicaoPontuacao">Pontuação: <span id="pontuacaoAtual">0</span>/<span
+                        id="totalPontuacao">0</span></span>
+                <span class="cronometro">⏱️ Tempo: <span id="cronometroDisplay">0s</span></span>
+            </div>
+        </header>
+
+        <!-- Barra de Progresso -->
+        <div class="containerProgresso">
+            <div class="infoProgresso">
+                <span id="textoProgresso">Pergunta 1 de 10</span>
+            </div>
+            <div class="wrapperBarraProgresso">
+                <div class="barraProgresso">
+                    <div class="preenchimentoProgresso" id="preenchimentoProgresso"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Container Principal do Quiz -->
+        <main class="containerQuiz" id="containerQuiz">
+            <!-- Será preenchido dinamicamente com as perguntas -->
+        </main>
+
+        <!-- Tela de Resultados -->
+        <section class="telaResultados" id="telaResultados">
+            <div class="conteudoResultados">
+                <h2>✅ Quiz Concluído!</h2>
+                <div class="exibicaoPontuacaoFinal">
+                    <div class="circuloPontuacao">
+                        <span class="percentualPontuacao" id="percentualPontuacao">0%</span>
+                    </div>
+                </div>
+                <div class="detalhesResultados">
+                    <p>Você acertou <strong id="respostasCorretas">0</strong> de <strong id="totalPerguntas">10</strong>
+                        perguntas</p>
+                    <p class="mensagemDesempenho" id="mensagemDesempenho"></p>
+                    <p class="pontosGanhos" id="pontosGanhos">Pontos ganhos: <strong>0</strong></p>
+                </div>
+                <div class="acoesResultados">
+                    <button class="botao botao-primario" onclick="reiniciarQuiz()">Reiniciar Quiz</button>
+                    <button class="botao botao-secundario" onclick="revisarRespostas()">Revisar Respostas</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela de Revisão -->
+        <section class="telaRevisao" id="telaRevisao">
+            <div class="cabecalhoRevisao">
+                <h2>📋 Revisão de Respostas</h2>
+                <button class="botaoFechar" onclick="voltarResultados()">&times;</button>
+            </div>
+            <div class="conteudoRevisao" id="conteudoRevisao">
+                <!-- Será preenchido dinamicamente com respostas -->
+            </div>
+            <div class="acoesRevisao">
+                <button class="botao botao-primario" onclick="voltarResultados()">Voltar</button>
+                <button class="botao botao-sucesso" onclick="reiniciarQuiz()">Fazer Quiz Novamente</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="autenticacao.js"></script>
+    <script src="quiz-pt.js"></script>
+</body>
+
+</html>

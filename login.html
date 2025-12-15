@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Quiz</title>
+    <link rel="stylesheet" href="autenticacao.css">
+</head>
+
+<body>
+    <div class="container-autenticacao">
+        <div class="caixa-autenticacao">
+            <div class="cabecalho-autenticacao">
+                <h1>🎓 Sistema de Quiz</h1>
+                <p>Teste seus conhecimentos</p>
+            </div>
+
+            <div class="formulario-container">
+                <h2>Fazer Login</h2>
+
+                <form id="formularioLogin" class="formulario">
+                    <div class="grupo-formulario">
+                        <label for="emailLogin">Email:</label>
+                        <input type="email" id="emailLogin" name="email" placeholder="seu@email.com" required>
+                        <span class="erro" id="erroEmailLogin"></span>
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="senhaLogin">Senha:</label>
+                        <input type="password" id="senhaLogin" name="senha" placeholder="Digite sua senha" required>
+                        <span class="erro" id="erroSenhaLogin"></span>
+                    </div>
+
+                    <div class="mensagem-erro" id="mensagemErroLogin"></div>
+
+                    <button type="submit" class="botao-primario">Entrar</button>
+                </form>
+
+                <div class="divisor">ou</div>
+
+                <p class="texto-alternativa">
+                    Não tem uma conta?
+                    <a href="registro.html" class="link">Crie uma agora</a>
+                </p>
+
+                <p class="texto-alternativa">
+                    <a href="index.html" class="link-secundario">← Voltar para página inicial</a>
+                </p>
+            </div>
+
+            <div class="rodape-autenticacao">
+                <p>Sistema de Quiz v1.0.0 | 2025</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="autenticacao.js"></script>
+    <script>
+        // Inicializar página de login
+        document.addEventListener('DOMContentLoaded', inicializarLogin);
+
+        function inicializarLogin() {
+            const formulario = document.getElementById('formularioLogin');
+            formulario.addEventListener('submit', processarLogin);
+        }
+    </script>
+</body>
+
+</html>

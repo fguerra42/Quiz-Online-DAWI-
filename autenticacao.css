@@ -1,0 +1,339 @@
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Estilos para Páginas de Autenticação (Login e Registro)           */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cor-primaria: #3498db;
+    --cor-sucesso: #2ecc71;
+    --cor-erro: #e74c3c;
+    --cor-aviso: #f39c12;
+    --cor-escura: #2c3e50;
+    --cor-clara: #ecf0f1;
+    --cor-cinza: #95a5a6;
+    --sombra: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --sombra-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --transicao: all 0.3s ease-in-out;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Container e Layout Principal                                       */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.container-autenticacao {
+    width: 100%;
+    max-width: 450px;
+}
+
+.caixa-autenticacao {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--sombra-lg);
+    overflow: hidden;
+    animation: aparecer 0.5s ease-in-out;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Cabeçalho da Autenticação                                          */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.cabecalho-autenticacao {
+    background: linear-gradient(135deg, var(--cor-primaria), #764ba2);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.cabecalho-autenticacao h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.cabecalho-autenticacao p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Container do Formulário                                            */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.formulario-container {
+    padding: 40px 30px;
+}
+
+.formulario-container h2 {
+    color: var(--cor-escura);
+    margin-bottom: 30px;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Grupos do Formulário                                               */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.grupo-formulario {
+    margin-bottom: 20px;
+}
+
+.grupo-formulario label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--cor-escura);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.grupo-formulario input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--cor-clara);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: var(--transicao);
+    color: var(--cor-escura);
+}
+
+.grupo-formulario input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    background: #f8f9ff;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.grupo-formulario input::placeholder {
+    color: var(--cor-cinza);
+}
+
+/* Mensagens de Erro no Campo */
+.erro {
+    display: block;
+    color: var(--cor-erro);
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Mensagens de Erro e Sucesso                                        */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.mensagem-erro {
+    background: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--cor-erro);
+    color: var(--cor-erro);
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: none;
+    animation: deslizar 0.3s ease-in-out;
+}
+
+.mensagem-sucesso {
+    background: rgba(46, 204, 113, 0.1);
+    border-left: 4px solid var(--cor-sucesso);
+    color: var(--cor-sucesso);
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: none;
+    animation: deslizar 0.3s ease-in-out;
+}
+
+.mensagem-erro.mostrar,
+.mensagem-sucesso.mostrar {
+    display: block;
+}
+
+@keyframes deslizar {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Botões                                                              */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.botao-primario {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--cor-primaria), #2980b9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicao);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--sombra);
+}
+
+.botao-primario:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-lg);
+}
+
+.botao-primario:active {
+    transform: translateY(0);
+}
+
+.botao-primario:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Divisor                                                             */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.divisor {
+    text-align: center;
+    margin: 25px 0;
+    position: relative;
+    color: var(--cor-cinza);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.divisor::before,
+.divisor::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: var(--cor-clara);
+}
+
+.divisor::before {
+    left: 0;
+}
+
+.divisor::after {
+    right: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Links e Texto Alternativo                                          */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.texto-alternativa {
+    text-align: center;
+    color: var(--cor-cinza);
+    font-size: 14px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.link {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.link:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.link-secundario {
+    color: var(--cor-cinza);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.link-secundario:hover {
+    color: var(--cor-primaria);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Rodapé                                                              */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.rodape-autenticacao {
+    background: var(--cor-clara);
+    padding: 15px 30px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    color: var(--cor-cinza);
+    font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Responsividade                                                      */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+    .caixa-autenticacao {
+        border-radius: 8px;
+    }
+
+    .cabecalho-autenticacao {
+        padding: 30px 20px;
+    }
+
+    .cabecalho-autenticacao h1 {
+        font-size: 28px;
+    }
+
+    .formulario-container {
+        padding: 25px 20px;
+    }
+
+    .formulario-container h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .grupo-formulario {
+        margin-bottom: 15px;
+    }
+
+    .botao-primario {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
