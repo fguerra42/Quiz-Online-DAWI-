@@ -19,7 +19,7 @@
             <div class="formulario-container">
                 <h2>Criar Conta</h2>
 
-                <form id="formularioRegistro" class="formulario">
+                <form id="formularioRegistro" class="formulario" onsubmit="processarRegistro(event); return false;">
                     <div class="grupo-formulario">
                         <label for="nomeRegistro">Nome Completo:</label>
                         <input type="text" id="nomeRegistro" name="nome" placeholder="Seu nome completo" required>

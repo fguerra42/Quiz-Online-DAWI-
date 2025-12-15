@@ -30,7 +30,7 @@ function resetarEstadoQuiz() {
     estadoQuiz.tempoDecorrido = 0;
     estadoQuiz.concluido = false;
     estadoQuiz.usuarioLogado = null;
-    
+
     // Limpar cronômetro se existir
     if (window.intervaloCronometro) {
         clearInterval(window.intervaloCronometro);
@@ -45,7 +45,7 @@ async function inicializarQuiz() {
     try {
         // Resetar estado anterior
         resetarEstadoQuiz();
-        
+
         // Verificar se há usuário logado
         estadoQuiz.usuarioLogado = gerenciador.obterUsuarioLogado();
 
@@ -437,12 +437,8 @@ function exibirMensagemErro(mensagem) {
 /**
  * Faz logout do usuário
  */
-function fazerLogout() {
-    if (confirm('Tem certeza que deseja sair?')) {
-        gerenciador.fazerLogout();
-        location.href = 'index.html';
-    }
-}
+// DELETADO: Função fazerLogout foi movida para autenticacao.js
+// A função correta está em autenticacao.js linha 361
 
 /**
  * Inicializar quiz quando a página carregar

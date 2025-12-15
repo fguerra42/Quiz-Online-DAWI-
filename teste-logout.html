@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Logout Direto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 12px 24px;
+            margin: 10px 5px;
+            cursor: pointer;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            border-left: 4px solid #3498db;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+
+        code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🧪 Teste de Logout</h1>
+
+        <h2>1️⃣ Registrar Usuário</h2>
+        <p>Criar um usuário de teste para logout</p>
+        <button class="btn-primary" onclick="registrarUsuario()">Registrar Usuário de Teste</button>
+        <div id="resultado-registro" class="resultado" style="display: none;"></div>
+
+        <h2>2️⃣ Fazer Login</h2>
+        <p>Autenticar o usuário de teste</p>
+        <button class="btn-primary" onclick="fazerLogin()">Fazer Login</button>
+        <div id="resultado-login" class="resultado" style="display: none;"></div>
+
+        <h2>3️⃣ Verificar Sessão</h2>
+        <p>Verificar se usuário está logado</p>
+        <button class="btn-primary" onclick="verificarSessao()">Verificar</button>
+        <div id="resultado-sessao" class="resultado" style="display: none;"></div>
+
+        <h2>4️⃣ Fazer Logout</h2>
+        <p>⚠️ IMPORTANTE: Após clicar, você será redirecionado para login.html</p>
+        <button class="btn-danger" onclick="testeLogout()">FAZER LOGOUT AGORA</button>
+        <div id="resultado-logout" class="resultado" style="display: none;"></div>
+
+        <h2>5️⃣ Limpar Tudo</h2>
+        <p>Limpar localStorage e começar do zero</p>
+        <button class="btn-danger" onclick="limparTudo()">Limpar localStorage</button>
+        <div id="resultado-limpar" class="resultado" style="display: none;"></div>
+    </div>
+
+    <script src="autenticacao.js"></script>
+    <script>
+        const USUARIO_TESTE = {
+            nome: 'Usuário Teste',
+            email: 'teste@example.com',
+            senha: 'senha123'
+        };
+
+        function mostrarResultado(elementId, mensagem, sucesso = true) {
+            const elemento = document.getElementById(elementId);
+            elemento.innerHTML = mensagem;
+            elemento.classList.remove('success', 'error');
+            elemento.classList.add(sucesso ? 'success' : 'error');
+            elemento.style.display = 'block';
+        }
+
+        function registrarUsuario() {
+            console.log('Registrando usuário...');
+            const resultado = gerenciador.registrarUsuario(USUARIO_TESTE);
+
+            const html = `
+                <strong>${resultado.mensagem}</strong><br>
+                Email: <code>${USUARIO_TESTE.email}</code><br>
+                Senha: <code>${USUARIO_TESTE.senha}</code>
+            `;
+            mostrarResultado('resultado-registro', html, resultado.sucesso);
+        }
+
+        function fazerLogin() {
+            console.log('Fazendo login...');
+            const resultado = gerenciador.fazerLogin(USUARIO_TESTE.email, USUARIO_TESTE.senha);
+
+            const html = `
+                <strong>${resultado.mensagem}</strong><br>
+                Usuário logado: <code>${resultado.usuario?.nome || 'Nenhum'}</code><br>
+                Email: <code>${resultado.usuario?.email || '-'}</code>
+            `;
+            mostrarResultado('resultado-login', html, resultado.sucesso);
+        }
+
+        function verificarSessao() {
+            console.log('Verificando sessão...');
+            const usuarioLogado = localStorage.getItem('quiz_usuario_logado');
+            const temSessao = !!usuarioLogado;
+
+            const html = `
+                <strong>${temSessao ? '✅ Usuário logado!' : '❌ Nenhum usuário logado'}</strong><br>
+                Dados: <code>${usuarioLogado ? JSON.parse(usuarioLogado).nome : 'vazio'}</code>
+            `;
+            mostrarResultado('resultado-sessao', html, temSessao);
+        }
+
+        function testeLogout() {
+            console.log('🔴 INICIANDO TESTE DE LOGOUT');
+            console.log('localStorage antes:', localStorage.getItem('quiz_usuario_logado'));
+
+            // Simular a função de logout
+            console.log('Chamando fazerLogout()...');
+
+            const html = `
+                <strong>⏳ Fazendo logout...</strong><br>
+                localStorage será limpo<br>
+                Você será redirecionado para <code>login.html</code> em 1 segundo...
+            `;
+            mostrarResultado('resultado-logout', html, true);
+
+            // Chamar a função real após 1 segundo
+            setTimeout(() => {
+                console.log('Chamando fazerLogout() agora...');
+                fazerLogout();
+            }, 1000);
+        }
+
+        function limparTudo() {
+            console.log('Limpando tudo...');
+            localStorage.clear();
+
+            const html = `
+                <strong>✅ localStorage foi completamente limpo!</strong><br>
+                Todas as sessões foram encerradas.
+            `;
+            mostrarResultado('resultado-limpar', html, true);
+        }
+
+        // Ao carregar a página
+        window.addEventListener('load', () => {
+            console.log('=== Página de Teste Logout Carregada ===');
+            console.log('localStorage atual:', localStorage);
+            verificarSessao();
+        });
+    </script>
+</body>
+
+</html>

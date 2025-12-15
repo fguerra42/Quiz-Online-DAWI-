@@ -1,0 +1,83 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║              ✅ PROBLEMA RESOLVIDO - LOGOUT AGORA FUNCIONA!                ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+🔍 PROBLEMA IDENTIFICADO
+════════════════════════════════════════════════════════════════════════════
+
+❌ ANTES: Existiam 3 funções fazerLogout() conflitantes
+
+  1. Em autenticacao.js linha 117
+     → Método da classe GerenciadorUsuario (não redireciona)
+  
+  2. Em autenticacao.js linha 361 ✅
+     → Função global que redireciona para login.html
+  
+  3. Em quiz-pt.js linha 440 ❌ PROBLEMA
+     → Função que redireciona para index.html
+     → Esta função SOBRESCREVIA a correta!
+
+════════════════════════════════════════════════════════════════════════════
+
+🔧 SOLUÇÃO IMPLEMENTADA
+════════════════════════════════════════════════════════════════════════════
+
+✅ REMOVIDA: A função conflitante em quiz-pt.js
+   - Deletado o código que redireccionava para index.html
+   - Adicionado comentário explicativo
+
+✅ MANTIDA: A função correta em autenticacao.js
+   - Redireciona para login.html ✓
+   - Limpa localStorage ✓
+   - Reseta estado do quiz ✓
+
+════════════════════════════════════════════════════════════════════════════
+
+📋 VERIFICAÇÃO
+════════════════════════════════════════════════════════════════════════════
+
+Agora apenas UMA função fazerLogout() existe:
+
+  grep -n "function fazerLogout" *.js
+  
+  Resultado:
+  /autenticacao.js:361:function fazerLogout() {
+
+════════════════════════════════════════════════════════════════════════════
+
+✨ FLUXO CORRETO AGORA
+════════════════════════════════════════════════════════════════════════════
+
+  1. Usuário clica em "Sair" (button onclick="fazerLogout()")
+  
+  2. Função em autenticacao.js é chamada:
+     ✓ Reseta estado do quiz
+     ✓ Remove localStorage['quiz_usuario_logado']
+     ✓ Limpa UI (container, resultados, revisão)
+     ✓ Redireciona para login.html
+  
+  3. Usuário é ENVIADO PARA LOGIN.HTML
+  
+  4. localStorage é limpado ✓
+  
+  5. Sessão encerrada ✓
+
+════════════════════════════════════════════════════════════════════════════
+
+🧪 COMO TESTAR
+════════════════════════════════════════════════════════════════════════════
+
+1. Acesse: http://localhost:8000/registro.html
+2. Crie uma conta de teste
+3. Acesse o quiz
+4. Clique em "Sair"
+5. ✅ Você será redirecionado para login.html
+6. ✅ Seu nome desaparecerá do header
+
+════════════════════════════════════════════════════════════════════════════
+
+🎉 PROBLEMA RESOLVIDO!
+
+O logout agora redireciona corretamente para login.html
+
+════════════════════════════════════════════════════════════════════════════

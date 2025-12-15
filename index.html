@@ -21,7 +21,7 @@
                         <span class="nomeUsuario" id="nomeUsuario"></span>
                         <span class="pontuacaoUsuario">Pontos: <strong id="pontosTotais">0</strong></span>
                         <span class="recorteUsuario">Recorde: <strong id="recordeUsuario">0</strong></span>
-                        <button class="botaoSair" onclick="fazerLogout()">Sair</button>
+                        <button id="botaoSair" class="botaoSair" onclick="fazerLogout()">Sair</button>
                     </div>
                     <div class="botoesBemVindo" id="botoesBemVindo">
                         <a href="login.html" class="botaoLink">Login</a>
@@ -95,6 +95,21 @@
 
     <script src="autenticacao.js"></script>
     <script src="quiz-pt.js"></script>
+    <script>
+        // Verificar se há usuário logado na inicialização
+        window.addEventListener('load', () => {
+            console.log('=== Página Principal Carregada ===');
+            const usuarioLogado = localStorage.getItem('quiz_usuario_logado');
+            console.log('Usuário logado na sessão:', usuarioLogado);
+
+            // Opcional: você pode remover esta verificação se quiser permitir
+            // que o quiz seja feito sem login
+            // if (!usuarioLogado) {
+            //     console.log('Nenhum usuário logado, redirecionando para login...');
+            //     window.location.href = 'login.html';
+            // }
+        });
+    </script>
 </body>
 
 </html>

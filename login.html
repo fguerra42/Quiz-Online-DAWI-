@@ -50,7 +50,7 @@
             </div>
 
             <div class="rodape-autenticacao">
-                <p>Sistema de Quiz v1.0.0 | 2025</p>
+                <p>Sistema de Quiz Feito por Firmino && Panzo | 2025</p>
             </div>
         </div>
     </div>
@@ -61,8 +61,21 @@
         document.addEventListener('DOMContentLoaded', inicializarLogin);
 
         function inicializarLogin() {
+            console.log('=== Página de Login Carregada ===');
+
+            // Limpar localStorage da sessão anterior se necessário
+            const usuarioLogado = localStorage.getItem('quiz_usuario_logado');
+            console.log('Usuário logado encontrado:', usuarioLogado);
+
+            // Se houver usuário logado e foi logout, ele já foi removido
+            // Se ainda existir e foi logout mal sucedido, isso ajuda
+
             const formulario = document.getElementById('formularioLogin');
             formulario.addEventListener('submit', processarLogin);
+
+            // Limpar campos do formulário
+            formulario.reset();
+            console.log('Formulário limpo e pronto');
         }
     </script>
 </body>

@@ -75,9 +75,16 @@ class GerenciadorUsuario {
      */
     fazerLogin(email, senha) {
         const usuarios = this.obterTodosUsuarios();
-        const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+        console.log('Usuários no localStorage:', usuarios);
+        console.log('Procurando por:', email, senha);
+
+        const usuario = usuarios.find(u => {
+            console.log(`Comparando ${u.email} === ${email} e senha`);
+            return u.email === email && u.senha === senha;
+        });
 
         if (!usuario) {
+            console.log('Usuário não encontrado ou senha incorreta');
             return {
                 sucesso: false,
                 mensagem: 'Email ou senha inválidos.'
@@ -85,6 +92,7 @@ class GerenciadorUsuario {
         }
 
         // Salvar usuário logado
+        console.log('Usuário encontrado, salvando sessão:', usuario);
         localStorage.setItem(this.chaveUsuarioLogado, JSON.stringify(usuario));
 
         return {
@@ -107,7 +115,10 @@ class GerenciadorUsuario {
      * Faz logout do usuário
      */
     fazerLogout() {
+        console.log('GerenciadorUsuario.fazerLogout() chamado');
+        console.log('Removendo chave:', this.chaveUsuarioLogado);
         localStorage.removeItem(this.chaveUsuarioLogado);
+        console.log('Logout concluído');
     }
 
     /**
@@ -164,34 +175,45 @@ const gerenciador = new GerenciadorUsuario();
  */
 function processarLogin(evento) {
     evento.preventDefault();
+    console.log('=== INICIANDO LOGIN ===');
 
     // Obter valores do formulário
     const email = document.getElementById('emailLogin').value.trim();
     const senha = document.getElementById('senhaLogin').value.trim();
+
+    console.log('Email digitado:', email);
+    console.log('Senha digitada:', senha);
 
     // Limpar mensagens de erro anteriores
     limparErros();
 
     // Validar campos
     if (!validarEmail(email)) {
+        console.log('Email inválido');
         mostrarErro('erroEmailLogin', 'Email inválido');
         return;
     }
 
     if (senha.length === 0) {
+        console.log('Senha vazia');
         mostrarErro('erroSenhaLogin', 'Digite sua senha');
         return;
     }
 
     // Fazer login
+    console.log('Chamando gerenciador.fazerLogin()...');
     const resultado = gerenciador.fazerLogin(email, senha);
 
+    console.log('Resultado do login:', resultado);
+
     if (resultado.sucesso) {
-        // Armazenar que veio de login para redirecionar
-        localStorage.setItem('vemDoLogin', 'true');
-        // Redirecionar para página principal
-        window.location.href = 'index.html';
+        console.log('Login bem-sucedido, redirecionando...');
+        // Aguardar um momento e depois redirecionar
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 300);
     } else {
+        console.log('Login falhou:', resultado.mensagem);
         mostrarMensagemErroLogin(resultado.mensagem);
     }
 }
@@ -337,21 +359,41 @@ function limparMensagens() {
  * Função global para fazer logout
  */
 function fazerLogout() {
-    // Resetar estado do quiz se a função existir
-    if (typeof resetarEstadoQuiz === 'function') {
-        resetarEstadoQuiz();
+    console.log('=== INICIANDO LOGOUT ===');
+
+    try {
+        // Resetar estado do quiz se a função existir
+        if (typeof resetarEstadoQuiz === 'function') {
+            console.log('Resetando estado do quiz...');
+            resetarEstadoQuiz();
+        }
+
+        // Limpar localStorage apenas do usuário logado
+        console.log('Removendo usuário logado do localStorage...');
+        localStorage.removeItem('quiz_usuario_logado');
+
+        // Verificar se foi removido corretamente
+        const usuarioVerificacao = localStorage.getItem('quiz_usuario_logado');
+        console.log('Usuário após logout:', usuarioVerificacao);
+
+        // Limpar UI se estiver em index.html
+        if (document.getElementById('containerQuiz')) {
+            console.log('Limpando UI do quiz...');
+            document.getElementById('containerQuiz').innerHTML = '';
+            const telaResultados = document.getElementById('telaResultados');
+            const telaRevisao = document.getElementById('telaRevisao');
+            if (telaResultados) telaResultados.classList.remove('mostrar');
+            if (telaRevisao) telaRevisao.classList.remove('mostrar');
+        }
+
+        console.log('Redirecionando para login.html...');
+
+        // Redirecionar de forma síncrona e direta
+        window.location.replace('login.html');
+
+    } catch (erro) {
+        console.error('Erro ao fazer logout:', erro);
+        // Mesmo com erro, tenta redirecionar
+        window.location.replace('login.html');
     }
-    
-    // Limpar localStorage apenas do usuário logado
-    gerenciador.fazerLogout();
-    
-    // Limpar UI se estiver em index.html
-    if (document.getElementById('containerQuiz')) {
-        document.getElementById('containerQuiz').innerHTML = '';
-        document.getElementById('telaResultados').classList.remove('mostrar');
-        document.getElementById('telaRevisao').classList.remove('mostrar');
-    }
-    
-    // Redirecionar para login
-    window.location.href = 'login.html';
 }
