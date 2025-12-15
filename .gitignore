@@ -1,0 +1,36 @@
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Arquivos de Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Node (se usar em futuro)
+node_modules/
+package-lock.json
+npm-debug.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Variáveis de ambiente
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Arquivos temporários
+*.tmp
+.temp/
