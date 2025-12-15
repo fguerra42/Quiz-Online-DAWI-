@@ -638,3 +638,126 @@ body {
         font-size: 11px;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - CELULAR PEQUENO (360px)                           */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 360px) {
+    body {
+        padding: 8px;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .cabecalhoQuiz {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .conteudoCabecalho {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .conteudoCabecalho h1 {
+        font-size: 18px;
+        word-wrap: break-word;
+    }
+
+    .secaoUsuario {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .infoUsuario {
+        flex-direction: column;
+        width: 100%;
+        font-size: 11px;
+        gap: 5px;
+    }
+
+    .botaoSair {
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .containerProgresso,
+    .containerQuiz {
+        padding: 12px;
+    }
+
+    .barraTitulo {
+        font-size: 13px;
+    }
+
+    .barraProgresso {
+        height: 6px;
+    }
+
+    .textoQuestao {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .opcao {
+        padding: 10px;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .botao {
+        padding: 9px 16px;
+        font-size: 12px;
+        margin: 8px 5px;
+    }
+
+    .acoesResultados,
+    .acoesRevisao {
+        flex-direction: column;
+    }
+
+    .acoesResultados .botao,
+    .acoesRevisao .botao {
+        width: 100%;
+        margin: 6px 0;
+    }
+
+    .containerBotoes {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .containerBotoes .botao {
+        width: 100%;
+    }
+
+    .botaoLink {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .tituloResultado {
+        font-size: 20px;
+    }
+
+    .mensagemResultado {
+        font-size: 13px;
+    }
+
+    .cardResultado {
+        padding: 15px;
+    }
+
+    .conteudoRevisao {
+        margin-top: 15px;
+    }
+
+    .perguntaRevisao {
+        margin-bottom: 12px;
+    }
+}

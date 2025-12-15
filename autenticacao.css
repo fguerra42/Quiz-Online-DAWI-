@@ -9,23 +9,33 @@
 }
 
 :root {
-    --cor-primaria: #3498db;
-    --cor-sucesso: #2ecc71;
-    --cor-erro: #e74c3c;
-    --cor-aviso: #f39c12;
-    --cor-escura: #2c3e50;
-    --cor-clara: #ecf0f1;
-    --cor-cinza: #95a5a6;
-    --sombra: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --cor-primaria: #667eea;
+    --cor-secundaria: #764ba2;
+    --cor-sucesso: #51cf66;
+    --cor-erro: #ff6b6b;
+    --cor-aviso: #ffd43b;
+    --cor-escura: #333;
+    --cor-clara: #f8f9fa;
+    --cor-cinza: #999;
+    --cor-texto: #333;
+    --sombra: 0 5px 15px rgba(0, 0, 0, 0.08);
     --sombra-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
-    --transicao: all 0.3s ease-in-out;
+    --transicao: all 0.3s ease;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -37,18 +47,11 @@ body {
 
 .container-autenticacao {
     width: 100%;
-    max-width: 450px;
+    max-width: 500px;
+    animation: fadeIn 0.5s ease;
 }
 
-.caixa-autenticacao {
-    background: white;
-    border-radius: 12px;
-    box-shadow: var(--sombra-lg);
-    overflow: hidden;
-    animation: aparecer 0.5s ease-in-out;
-}
-
-@keyframes aparecer {
+@keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -60,12 +63,22 @@ body {
     }
 }
 
+.caixa-autenticacao {
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--sombra-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
 /* ═══════════════════════════════════════════════════════════════════ */
 /* Cabeçalho da Autenticação                                          */
 /* ═══════════════════════════════════════════════════════════════════ */
 
 .cabecalho-autenticacao {
-    background: linear-gradient(135deg, var(--cor-primaria), #764ba2);
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
     color: white;
     padding: 40px 30px;
     text-align: center;
@@ -75,11 +88,13 @@ body {
     font-size: 32px;
     margin-bottom: 10px;
     font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .cabecalho-autenticacao p {
     font-size: 16px;
-    opacity: 0.9;
+    opacity: 0.95;
+    margin: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════════ */
@@ -87,14 +102,442 @@ body {
 /* ═══════════════════════════════════════════════════════════════════ */
 
 .formulario-container {
-    padding: 40px 30px;
+    padding: 35px 30px;
+    flex: 1;
 }
 
 .formulario-container h2 {
     color: var(--cor-escura);
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     font-size: 24px;
     text-align: center;
+    font-weight: 600;
+}
+
+.formulario {
+    width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Grupos do Formulário                                               */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.grupo-formulario {
+    margin-bottom: 20px;
+}
+
+.grupo-formulario label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--cor-escura);
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+.grupo-formulario input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: var(--transicao);
+    color: var(--cor-escura);
+    background-color: white;
+}
+
+.grupo-formulario input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    background-color: #f8f9ff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.grupo-formulario input::placeholder {
+    color: #bbb;
+}
+
+/* Mensagens de Erro no Campo */
+.erro {
+    display: block;
+    color: var(--cor-erro);
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 16px;
+    font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Mensagens de Erro e Sucesso                                        */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.mensagem-erro {
+    background: rgba(255, 107, 107, 0.1);
+    border-left: 4px solid var(--cor-erro);
+    color: var(--cor-erro);
+    padding: 15px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: none;
+    animation: slideIn 0.3s ease;
+    font-weight: 500;
+}
+
+.mensagem-sucesso {
+    background: rgba(81, 207, 102, 0.1);
+    border-left: 4px solid var(--cor-sucesso);
+    color: #2d8a4a;
+    padding: 15px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: none;
+    animation: slideIn 0.3s ease;
+    font-weight: 500;
+}
+
+.mensagem-erro.mostrar,
+.mensagem-sucesso.mostrar {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Botões                                                              */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.botao-primario {
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicao);
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    text-transform: uppercase;
+}
+
+.botao-primario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.botao-primario:active {
+    transform: translateY(0);
+}
+
+.botao-primario:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Divisor                                                             */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.divisor {
+    text-align: center;
+    margin: 25px 0;
+    position: relative;
+    color: var(--cor-cinza);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.divisor::before,
+.divisor::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.divisor::before {
+    left: 0;
+}
+
+.divisor::after {
+    right: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Links e Texto Alternativo                                          */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.texto-alternativa {
+    text-align: center;
+    color: var(--cor-cinza);
+    font-size: 14px;
+    margin-bottom: 12px;
+    line-height: 1.8;
+}
+
+.texto-alternativa a {
+    text-decoration: none;
+}
+
+.link {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transicao);
+    border-bottom: 2px solid transparent;
+}
+
+.link:hover {
+    color: var(--cor-secundaria);
+    border-bottom-color: var(--cor-primaria);
+}
+
+.link-secundario {
+    color: var(--cor-cinza);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.link-secundario:hover {
+    color: var(--cor-primaria);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Rodapé                                                              */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.rodape-autenticacao {
+    background: #f5f5f5;
+    padding: 15px 30px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    color: var(--cor-cinza);
+    font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - TABLET (768px)                                    */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .container-autenticacao {
+        max-width: 90%;
+    }
+
+    .cabecalho-autenticacao {
+        padding: 35px 25px;
+    }
+
+    .cabecalho-autenticacao h1 {
+        font-size: 28px;
+    }
+
+    .cabecalho-autenticacao p {
+        font-size: 15px;
+    }
+
+    .formulario-container {
+        padding: 30px 25px;
+    }
+
+    .formulario-container h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - CELULAR (480px)                                   */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .container-autenticacao {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .caixa-autenticacao {
+        border-radius: 12px;
+    }
+
+    .cabecalho-autenticacao {
+        padding: 30px 20px;
+    }
+
+    .cabecalho-autenticacao h1 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .cabecalho-autenticacao p {
+        font-size: 13px;
+    }
+
+    .formulario-container {
+        padding: 25px 20px;
+    }
+
+    .formulario-container h2 {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    .grupo-formulario {
+        margin-bottom: 18px;
+    }
+
+    .grupo-formulario label {
+        font-size: 13px;
+        margin-bottom: 7px;
+    }
+
+    .grupo-formulario input {
+        padding: 11px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    .erro {
+        font-size: 11px;
+        margin-top: 5px;
+    }
+
+    .mensagem-erro,
+    .mensagem-sucesso {
+        padding: 12px 12px;
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+    .botao-primario {
+        padding: 12px 16px;
+        font-size: 14px;
+        border-radius: 6px;
+        letter-spacing: 0;
+    }
+
+    .divisor {
+        margin: 20px 0;
+        font-size: 12px;
+    }
+
+    .texto-alternativa {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .rodape-autenticacao {
+        padding: 12px 20px;
+        font-size: 10px;
+        word-break: break-word;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - CELULAR PEQUENO (360px)                           */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 360px) {
+    .caixa-autenticacao {
+        border-radius: 8px;
+        margin: 0 5px;
+    }
+
+    .cabecalho-autenticacao {
+        padding: 20px 12px;
+    }
+
+    .cabecalho-autenticacao h1 {
+        font-size: 18px;
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .cabecalho-autenticacao p {
+        font-size: 11px;
+        word-wrap: break-word;
+    }
+
+    .formulario-container {
+        padding: 18px 12px;
+    }
+
+    .formulario-container h2 {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .grupo-formulario {
+        margin-bottom: 12px;
+    }
+
+    .grupo-formulario label {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .grupo-formulario input {
+        padding: 9px 10px;
+        font-size: 12px;
+        border-radius: 6px;
+    }
+
+    .botao-primario {
+        padding: 10px 14px;
+        font-size: 12px;
+    }
+
+    .divisor {
+        margin: 15px 0;
+        font-size: 11px;
+    }
+
+    .texto-alternativa {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .link,
+    .link-secundario {
+        font-size: 12px;
+    }
+
+    .mensagem-erro,
+    .mensagem-sucesso {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .rodape-autenticacao {
+        padding: 8px 10px;
+        font-size: 8px;
+        line-height: 1.3;
+        word-break: break-word;
+        overflow: hidden;
+    }
 }
 
 /* ═══════════════════════════════════════════════════════════════════ */
@@ -300,6 +743,9 @@ body {
     border-top: 1px solid #ddd;
     color: var(--cor-cinza);
     font-size: 12px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
 }
 
 /* ═══════════════════════════════════════════════════════════════════ */

@@ -1,0 +1,480 @@
+{
+    "categorias": [
+        {
+            "id": "tecnologia",
+            "nome": "💻 Tecnologia",
+            "descricao": "Programação, hardware, redes e inovação tecnológica",
+            "cor": "#667eea",
+            "icone": "💻",
+            "perguntas": [
+                {
+                    "id": 1,
+                    "pergunta": "O que significa HTML?",
+                    "opcoes": [
+                        "Hyper Text Markup Language",
+                        "High Tech Modern Language",
+                        "Home Tool Markup Language",
+                        "Hyperlinks and Text Markup Language"
+                    ],
+                    "respostaCorreta": 0
+                },
+                {
+                    "id": 2,
+                    "pergunta": "Qual é a arquitetura de processador mais comum em computadores atuais?",
+                    "opcoes": [
+                        "x86",
+                        "ARM",
+                        "MIPS",
+                        "PowerPC"
+                    ],
+                    "respostaCorreta": 0
+                },
+                {
+                    "id": 3,
+                    "pergunta": "O que significa 'Cloud Computing'?",
+                    "opcoes": [
+                        "Computação em nuvem (servidores remotos)",
+                        "Computador com processador nuvem",
+                        "Rede de computadores locais",
+                        "Armazenamento em disco rígido"
+                    ],
+                    "respostaCorreta": 0
+                },
+                {
+                    "id": 4,
+                    "pergunta": "Qual linguagem é usada principalmente para desenvolvimento backend?",
+                    "opcoes": [
+                        "HTML",
+                        "CSS",
+                        "Python",
+                        "Todas as anteriores"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 5,
+                    "pergunta": "O que é Git?",
+                    "opcoes": [
+                        "Um editor de código",
+                        "Um sistema de controle de versão",
+                        "Uma linguagem de programação",
+                        "Um servidor web"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 6,
+                    "pergunta": "Quantos bits tem um byte?",
+                    "opcoes": [
+                        "4 bits",
+                        "8 bits",
+                        "16 bits",
+                        "32 bits"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 7,
+                    "pergunta": "O que significa API?",
+                    "opcoes": [
+                        "Application Programming Interface",
+                        "Advanced Program Interaction",
+                        "Automated Process Improvement",
+                        "Application Process Integration"
+                    ],
+                    "respostaCorreta": 0
+                },
+                {
+                    "id": 8,
+                    "pergunta": "Qual é o protocolo padrão para transferência segura de dados na web?",
+                    "opcoes": [
+                        "HTTP",
+                        "FTP",
+                        "HTTPS",
+                        "SMTP"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 9,
+                    "pergunta": "O que é um banco de dados relacional?",
+                    "opcoes": [
+                        "Um banco que organiza dados em tabelas relacionadas",
+                        "Um banco de dados em nuvem",
+                        "Um tipo de arquivo de dados",
+                        "Um servidor web"
+                    ],
+                    "respostaCorreta": 0
+                },
+                {
+                    "id": 10,
+                    "pergunta": "Qual linguagem é conhecida como a 'mãe das linguagens de programação'?",
+                    "opcoes": [
+                        "Python",
+                        "Java",
+                        "C",
+                        "JavaScript"
+                    ],
+                    "respostaCorreta": 2
+                }
+            ]
+        },
+        {
+            "id": "desporto",
+            "nome": "⚽ Desporto",
+            "descricao": "Perguntas sobre futebol, ténis, atletismo e outros desportos",
+            "cor": "#ff6b6b",
+            "icone": "⚽",
+            "perguntas": [
+                {
+                    "id": 1,
+                    "pergunta": "Quantos jogadores tem um time de futebol em campo?",
+                    "opcoes": [
+                        "9 jogadores",
+                        "10 jogadores",
+                        "11 jogadores",
+                        "12 jogadores"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 2,
+                    "pergunta": "Qual país ganhou a Copa do Mundo de 2022?",
+                    "opcoes": [
+                        "Brasil",
+                        "França",
+                        "Argentina",
+                        "Alemanha"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 3,
+                    "pergunta": "Em qual desporto se usa uma raquete?",
+                    "opcoes": [
+                        "Críquete",
+                        "Ténis",
+                        "Badmínton",
+                        "Todas as acima"
+                    ],
+                    "respostaCorreta": 3
+                },
+                {
+                    "id": 4,
+                    "pergunta": "Qual é a marca de desporto mais famosa do mundo?",
+                    "opcoes": [
+                        "Adidas",
+                        "Puma",
+                        "Nike",
+                        "Reebok"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 5,
+                    "pergunta": "Quantos sets tem um jogo de ténis profissional?",
+                    "opcoes": [
+                        "Melhor de 3",
+                        "Melhor de 5",
+                        "Ambos os acima (depende)",
+                        "Sempre 5 sets"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 6,
+                    "pergunta": "Qual é a distância da maratona?",
+                    "opcoes": [
+                        "30 km",
+                        "42,195 km",
+                        "50 km",
+                        "100 km"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 7,
+                    "pergunta": "Em que país nasceu o yoga?",
+                    "opcoes": [
+                        "Japão",
+                        "Índia",
+                        "Tailândia",
+                        "China"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 8,
+                    "pergunta": "Qual é o maior estádio de futebol do mundo?",
+                    "opcoes": [
+                        "Camp Nou",
+                        "Maracanã",
+                        "Old Trafford",
+                        "Rungrado 1º de Maio"
+                    ],
+                    "respostaCorreta": 3
+                },
+                {
+                    "id": 9,
+                    "pergunta": "Quantos rounds tem um combate de boxe profissional?",
+                    "opcoes": [
+                        "5 rounds",
+                        "8 rounds",
+                        "10 ou 12 rounds",
+                        "Varia"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 10,
+                    "pergunta": "Qual desportista ganhou mais medalhas olímpicas?",
+                    "opcoes": [
+                        "Michael Phelps",
+                        "Usain Bolt",
+                        "Serena Williams",
+                        "Cristiano Ronaldo"
+                    ],
+                    "respostaCorreta": 0
+                }
+            ]
+        },
+        {
+            "id": "cultura",
+            "nome": "🌍 Cultura Geral",
+            "descricao": "Perguntas variadas sobre história, geografia, artes e conhecimento geral",
+            "cor": "#51cf66",
+            "icone": "🌍",
+            "perguntas": [
+                {
+                    "id": 1,
+                    "pergunta": "Qual é a capital de França?",
+                    "opcoes": [
+                        "Lyon",
+                        "Marseille",
+                        "Paris",
+                        "Bordeaux"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 2,
+                    "pergunta": "Em que ano terminou a Segunda Guerra Mundial?",
+                    "opcoes": [
+                        "1943",
+                        "1944",
+                        "1945",
+                        "1946"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 3,
+                    "pergunta": "Quem pintou a Mona Lisa?",
+                    "opcoes": [
+                        "Vincent van Gogh",
+                        "Leonardo da Vinci",
+                        "Michelângelo",
+                        "Rafael"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 4,
+                    "pergunta": "Qual é o maior planeta do sistema solar?",
+                    "opcoes": [
+                        "Saturno",
+                        "Netuno",
+                        "Júpiter",
+                        "Marte"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 5,
+                    "pergunta": "Quantos continentes existem?",
+                    "opcoes": [
+                        "5 continentes",
+                        "6 continentes",
+                        "7 continentes",
+                        "8 continentes"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 6,
+                    "pergunta": "Qual é o rio mais comprido do mundo?",
+                    "opcoes": [
+                        "Rio Amazonas",
+                        "Rio Nilo",
+                        "Rio Yangtzé",
+                        "Rio Mississipi"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 7,
+                    "pergunta": "Em que ano caiu o Muro de Berlim?",
+                    "opcoes": [
+                        "1987",
+                        "1988",
+                        "1989",
+                        "1990"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 8,
+                    "pergunta": "Quantas cordas tem um violino?",
+                    "opcoes": [
+                        "3 cordas",
+                        "4 cordas",
+                        "5 cordas",
+                        "6 cordas"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 9,
+                    "pergunta": "Qual é a língua mais falada no mundo?",
+                    "opcoes": [
+                        "Inglês",
+                        "Espanhol",
+                        "Mandarim",
+                        "Francês"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 10,
+                    "pergunta": "Em que país fica a Torre de Pisa?",
+                    "opcoes": [
+                        "França",
+                        "Itália",
+                        "Espanha",
+                        "Grécia"
+                    ],
+                    "respostaCorreta": 1
+                }
+            ]
+        },
+        {
+            "id": "matematica",
+            "nome": "🔢 Matemática",
+            "descricao": "Perguntas sobre aritmética, geometria, álgebra e lógica matemática",
+            "cor": "#ffd43b",
+            "icone": "🔢",
+            "perguntas": [
+                {
+                    "id": 1,
+                    "pergunta": "Qual é o resultado de 2 + 2 × 3?",
+                    "opcoes": [
+                        "8",
+                        "12",
+                        "6",
+                        "5"
+                    ],
+                    "respostaCorreta": 0
+                },
+                {
+                    "id": 2,
+                    "pergunta": "Qual é a raiz quadrada de 144?",
+                    "opcoes": [
+                        "10",
+                        "11",
+                        "12",
+                        "13"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 3,
+                    "pergunta": "Quantos lados tem um hexágono?",
+                    "opcoes": [
+                        "5 lados",
+                        "6 lados",
+                        "7 lados",
+                        "8 lados"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 4,
+                    "pergunta": "Qual é o valor de π (pi) aproximadamente?",
+                    "opcoes": [
+                        "2,14",
+                        "3,14",
+                        "4,14",
+                        "5,14"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 5,
+                    "pergunta": "Qual é o resultado de 5! (fatorial)?",
+                    "opcoes": [
+                        "100",
+                        "110",
+                        "120",
+                        "130"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 6,
+                    "pergunta": "Qual é a fórmula da área de um círculo?",
+                    "opcoes": [
+                        "2πr",
+                        "πr²",
+                        "2πr²",
+                        "π × d"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 7,
+                    "pergunta": "Qual número é divisível por 2, 3 e 5?",
+                    "opcoes": [
+                        "20",
+                        "25",
+                        "30",
+                        "35"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 8,
+                    "pergunta": "Qual é o resultado de 10³?",
+                    "opcoes": [
+                        "30",
+                        "100",
+                        "1000",
+                        "10000"
+                    ],
+                    "respostaCorreta": 2
+                },
+                {
+                    "id": 9,
+                    "pergunta": "Qual é a porcentagem de 25 em relação a 100?",
+                    "opcoes": [
+                        "20%",
+                        "25%",
+                        "30%",
+                        "35%"
+                    ],
+                    "respostaCorreta": 1
+                },
+                {
+                    "id": 10,
+                    "pergunta": "Qual é o máximo divisor comum (MDC) de 12 e 18?",
+                    "opcoes": [
+                        "2",
+                        "3",
+                        "4",
+                        "6"
+                    ],
+                    "respostaCorreta": 3
+                }
+            ]
+        }
+    ]
+}

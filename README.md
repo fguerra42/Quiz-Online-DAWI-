@@ -1,230 +1,220 @@
-# 🎓 Sistema de Quiz Interativo com Autenticação
+# 🎓 Sistema de Quiz Interativo
 
-Um sistema de quiz dinâmico, responsivo e totalmente funcional desenvolvido em **HTML5**, **CSS3** e **JavaScript Vanilla**, com sistema completo de autenticação de usuários e pontuação em tempo real.
+Um sistema completo de quiz com autenticação, 4 categorias diferentes e responsividade total em todos os dispositivos.
 
-## ✨ Características Principais
+## ✨ Funcionalidades Principais
 
 ### 🔐 Autenticação
-- ✅ Registro de novos usuários
-- ✅ Login seguro com validação
-- ✅ Logout com limpeza completa de estado
+- ✅ Registro de usuários com validação completa
+- ✅ Login seguro
+- ✅ Logout com limpeza de sessão
 - ✅ Dados persistidos em localStorage
 
 ### 🎯 Sistema de Quiz
-- ✅ 10 perguntas de JavaScript
-- ✅ 4 opções de resposta por pergunta
-- ✅ Feedback imediato (correto em verde, incorreto em vermelho)
-- ✅ Sistema de pontuação: 10 pontos por acerto
-- ✅ Barra de progresso visual
+- ✅ 4 categorias temáticas diferentes
+- ✅ 10 questões por categoria (40 total)
+- ✅ Feedback imediato (verde/vermelho)
+- ✅ Pontuação: 10 pontos por acerto
+- ✅ Revisão de respostas
 - ✅ Cronômetro integrado
 
-### 📊 Pontuação e Recordes
-- ✅ Cálculo automático de pontos
-- ✅ Rastreamento de recorde (melhor score)
-- ✅ Histórico de tentativas
-- ✅ Estatísticas de desempenho
+### 📊 Gerenciamento de Dados
+- ✅ Pontuação em tempo real
+- ✅ Sistema de recordes
+- ✅ Histórico de tentativas com data/hora
+- ✅ Perfil de usuário
+- ✅ Estatísticas completas
 
-### 🎨 Interface
-- ✅ Design responsivo (mobile, tablet, desktop)
-- ✅ Animações suaves
-- ✅ Gradientes profissionais
-- ✅ Acessibilidade
+### 📱 Design Responsivo
+- ✅ Mobile (320px - 480px)
+- ✅ Tablet (768px - 1024px)
+- ✅ Desktop (1200px+)
+- ✅ Rodapés otimizados
 - ✅ Sem dependências externas
 
 ## 📁 Estrutura do Projeto
 
 ```
 WEB_PROJECT/
-├── index.html              # Página principal do quiz
-├── login.html              # Página de login
-├── registro.html           # Página de registro
-├── quiz-pt.js              # Lógica do quiz (português)
-├── autenticacao.js         # Sistema de autenticação
-├── styles.css              # Estilos gerais
-├── autenticacao.css        # Estilos de login/registro
-├── questions.json          # Base de dados de perguntas
-├── START.sh                # Script de inicialização
-└── README.md               # Este arquivo
+├── index.html                    # Página do quiz
+├── login.html                    # Login
+├── registro.html                 # Registro
+├── menu.html                     # Menu principal
+├── categorias.html               # Seleção de categorias
+│
+├── quiz-pt.js                    # Lógica do quiz
+├── autenticacao.js               # Sistema de autenticação
+├── menu.js                       # Lógica do menu
+├── categorias.js                 # Lógica de categorias
+│
+├── styles.css                    # Estilos do quiz
+├── autenticacao.css              # Estilos de autenticação
+├── menu.css                      # Estilos do menu
+├── categorias.css                # Estilos de categorias
+│
+├── questions-categorias.json     # Base de dados (40 perguntas)
+├── .gitignore                    # Configuração Git
+└── README.md                     # Documentação
 ```
 
-## 🚀 Como Executar
+## 🚀 Como Iniciar
 
-### Opção 1: Servidor Local (Recomendado)
 ```bash
 cd /home/fguerra/WEB_PROJECT
 python3 -m http.server 8000
 ```
 
-Acesse: `http://localhost:8000/login.html`
+Abra no navegador: **http://localhost:8000/login.html**
 
-### Opção 2: Abrir Direto no Navegador
-Faça duplo clique em `login.html`
+## 📚 As 4 Categorias
 
-## 📝 Como Usar
+| Categoria | Ícone | Tópicos |
+|-----------|-------|---------|
+| **Tecnologia** | 💻 | HTML, JavaScript, Cloud, APIs, Git, Databases |
+| **Desporto** | ⚽ | Futebol, Ténis, Fórmula 1, Basquetebol |
+| **Cultura Geral** | 🌍 | Capitais, História, Geografia, Artes |
+| **Matemática** | 🔢 | Aritmética, Geometria, Álgebra, Lógica |
 
-### 1️⃣ Registre-se (Primeira Vez)
-- Clique em **"Criar Conta"** na página de login
-- Preencha:
-  - **Nome**: Mínimo 3 caracteres
-  - **Email**: Email válido
-  - **Senha**: Mínimo 6 caracteres
-  - **Confirmar Senha**: Deve ser igual à senha
+## 🔄 Fluxo da Aplicação
 
-### 2️⃣ Faça Login
-- Insira seu **Email** e **Senha**
-- Clique em **"Entrar"**
-
-### 3️⃣ Realize o Quiz
-- Responda às 10 perguntas
-- Veja feedback imediato
-- Acompanhe a barra de progresso
-- Cada acerto = 10 pontos
-
-### 4️⃣ Veja os Resultados
-- Percentual de acerto
-- Total de pontos ganhos
-- Mensagem de desempenho personalizada
-- Opção de revisar ou reiniciar
-
-### 5️⃣ Faça Logout
-- Clique no botão **"Sair"** (canto superior direito)
-- Volta para login limpo
-
-## 💾 Dados Armazenados
-
-Todo os dados são salvos localmente no navegador (localStorage):
-
-```json
-{
-  "quiz_usuarios": [
-    {
-      "id": 1702414800000,
-      "nome": "João Silva",
-      "email": "joao@example.com",
-      "senha": "123456",
-      "dataCriacao": "2025-12-15T15:58:00Z",
-      "pontuacao": 80,
-      "recorde": 100,
-      "historico": [
-        {
-          "data": "2025-12-15T15:58:00Z",
-          "pontos": 80
-        }
-      ]
-    }
-  ]
-}
+```
+Login/Registro
+        ↓
+   Menu Principal
+   ├─ Jogar → Categorias → Quiz (10 questões) → Resultado
+   ├─ Histórico (Modal)
+   ├─ Perfil (Modal)
+   ├─ Sobre (Modal)
+   └─ Logout → Volta para Login
 ```
 
-## 🔒 Segurança
+## 🎨 Tecnologias Utilizadas
 
-- ✅ Validação de email
-- ✅ Validação de senha
-- ✅ Escape de HTML para evitar XSS
-- ✅ Autenticação baseada em localStorage
-- ⚠️ Nota: Em produção, usar backend seguro com hashing de senhas
+- **HTML5** - Estrutura semântica
+- **CSS3** - Flexbox, Grid, Animações, Media Queries
+- **JavaScript ES6+** - Código moderno e limpo
+- **localStorage** - Persistência de dados local
+- **Sem frameworks** - Código vanilla puro
+
+## 📊 Sistema de Pontuação
+
+- **10 pontos** por resposta correta
+- **0 pontos** por resposta errada
+- **Máximo**: 100 pontos por quiz
+- **Recorde** salvo automaticamente
+- **Histórico** de todas as tentativas
 
 ## 📱 Responsividade
 
-O sistema é totalmente responsivo em:
-- 📱 **Mobile**: < 480px
-- 📱 **Tablet**: 480px - 768px
-- 💻 **Desktop**: > 768px
+Totalmente otimizado para todos os tamanhos:
 
-## 🎨 Tecnologias
+| Dispositivo | Largura | Otimização |
+|------------|---------|------------|
+| iPhone SE/5 | 320-375px | 1 coluna, font 9px |
+| Galaxy S/Moto G | 360-480px | 1 coluna, font 10px |
+| iPad Mini | 768px | 2 colunas |
+| Tablets | 1024px | Layout completo |
+| Desktop | 1200px+ | Layout original |
 
-- **HTML5**: Semântica e estrutura
-- **CSS3**: Flexbox, Grid, Gradientes, Animações
-- **JavaScript ES6+**: Classes, Async/Await, Arrow Functions
-- **LocalStorage**: Persistência de dados
+## ✅ Validações Implementadas
 
-## 📊 Arquivos JavaScript
+**Registro:**
+- Nome obrigatório (mín. 3 caracteres)
+- Email válido (formato correto)
+- Senha obrigatória
+- Confirmação de senha igual
+- Email não pode ser duplicado
 
-### `quiz-pt.js` (~457 linhas)
-- Estado global do quiz
-- Inicialização e renderização
-- Lógica de resposta
-- Cálculo de pontuação
-- Telas de resultados e revisão
+**Login:**
+- Email obrigatório
+- Senha obrigatória
+- Email deve estar registrado
+- Senha deve estar correta
 
-### `autenticacao.js` (~344 linhas)
-- Classe `GerenciadorUsuario`
-- Registro e login
-- Validação de dados
-- Gerenciamento de sessão
+## 💾 Armazenamento de Dados
 
-## 🛠️ Customização
+Dados salvos em `localStorage`:
+- `quiz_usuarios` - Lista de usuários registrados
+- `quiz_usuario_logado` - Usuário atualmente logado
+- `quiz_categoria_selecionada` - Categoria escolhida
 
-### Adicionar Mais Perguntas
-Edite `questions.json` e adicione perguntas ao array:
+## 🎯 Exemplo de Uso
 
-```json
-{
-  "id": 11,
-  "pergunta": "Sua pergunta aqui?",
-  "opcoes": [
-    "Opção 1",
-    "Opção 2",
-    "Opção 3",
-    "Opção 4"
-  ],
-  "respostaCorreta": 0
-}
-```
+### 1. Registrar-se
+- Email: seu@email.com
+- Senha: 123456
+- Confirmar: 123456
 
-### Mudar Cores
-Edite as variáveis CSS em `styles.css`:
+### 2. Fazer Login
+- Usar as credenciais acima
 
-```css
-:root {
-    --primary-color: #3498db;
-    --success-color: #2ecc71;
-    --danger-color: #e74c3c;
-    ...
-}
-```
+### 3. Jogar Quiz
+- Clique em "Jogar"
+- Escolha uma categoria
+- Responda as 10 questões
+- Veja sua pontuação
 
-## 📈 Estatísticas do Projeto
+### 4. Ver Histórico
+- Clique em "Histórico" para ver todas as tentativas
+- Veja seu recorde e estatísticas
 
-- **Arquivos**: 9
-- **Linhas de Código**: ~2,400
-- **Tamanho**: ~60 KB
-- **Funcionalidades**: 15+
+## 🔐 Segurança
 
-## ✅ Funcionalidades Implementadas
+- Validação de formulários
+- Proteção de rotas (acesso apenas com login)
+- Logout limpa a sessão completamente
+- Dados não são expostos nas URLs
 
-- [x] Login e Registro
-- [x] Autenticação de usuários
-- [x] Quiz com perguntas dinâmicas
-- [x] Sistema de pontuação (10 pts por acerto)
-- [x] Recordes e histórico
-- [x] Feedback imediato
-- [x] Barra de progresso
-- [x] Cronômetro
-- [x] Revisão de respostas
-- [x] Design responsivo
-- [x] Validação de dados
-- [x] Logout com limpeza
+## 🚀 Funcionalidades Adicionais
 
-## 🐛 Problemas Conhecidos
+- ✨ Menu com saudação personalizada
+- 📊 Barra de progresso visual
+- ⏱️ Cronômetro durante o quiz
+- 🔄 Revisão de respostas
+- 📈 Estatísticas do usuário
+- 🎯 Sistema de categorias
 
-Nenhum no momento! Tudo funcionando perfeitamente ✅
+## 📝 Estrutura de Código
 
-## 📝 Notas de Desenvolvimento
+**JavaScript:**
+- `autenticacao.js` - Gestão de usuários
+- `quiz-pt.js` - Lógica do quiz
+- `menu.js` - Lógica do menu
+- `categorias.js` - Seleção de categorias
 
-- Sem dependências externas (Vanilla JS)
-- Código comentado em português
-- Estrutura limpa e modular
-- Fácil de manter e expandir
+**CSS:**
+- `autenticacao.css` - Estilos de login/registro
+- `styles.css` - Estilos do quiz
+- `menu.css` - Estilos do menu
+- `categorias.css` - Estilos de categorias
 
-## 👨‍💻 Autor
+**JSON:**
+- `questions-categorias.json` - 40 questões em 4 categorias
 
-Desenvolvido para aprendizado e educação em 2025
+## 🌟 Destaques
 
-## 📄 Licença
+✨ **100% Responsivo** - Funciona perfeitamente em qualquer dispositivo  
+✨ **Sem Dependências** - Código vanilla puro  
+✨ **Portuguese Complete** - Interface 100% em português  
+✨ **4 Categorias** - 40 questões variadas  
+✨ **Pronto para Produção** - Código otimizado e organizado
 
-Este projeto é de código aberto e pode ser utilizado livremente.
+## 📊 Estatísticas
+
+- **Total de Questões:** 40
+- **Categorias:** 4
+- **Questões por Categoria:** 10
+- **Pontos por Acerto:** 10
+- **Pontuação Máxima:** 100
+- **Linhas de Código:** ~2.500+
+
+## 👥 Desenvolvido por
+
+**Firmino da Silva Guerra** & **Panzo Rafael Chiló**
 
 ---
 
-**Desenvolvido com ❤️ para educação**
+**Status:** ✅ Completo e Responsivo  
+**Versão:** 2.0  
+**Data:** 15 de Dezembro de 2025  
+**Licença:** Código aberto

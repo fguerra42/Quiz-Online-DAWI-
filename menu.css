@@ -1,0 +1,688 @@
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Estilos da Página de Menu Principal                               */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+    --cor-primaria: #667eea;
+    --cor-secundaria: #764ba2;
+    --cor-sucesso: #51cf66;
+    --cor-aviso: #ffd43b;
+    --cor-fundo: #f8f9fa;
+    --cor-texto: #333;
+    --cor-texto-claro: #666;
+    --cor-borda: #e0e0e0;
+    --sombra: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transicao: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* CABEÇALHO DO MENU                                                  */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.cabecalhoMenu {
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: white;
+    padding: 15px 0;
+    box-shadow: var(--sombra);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.containerCabecalho {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoMenu h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.infoUsuarioMenu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dadosUsuario {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.nomeUsuario {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.pontuacaoUsuario {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.botaySair {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.botaySair:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.botaySair:active {
+    transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* CONTEÚDO PRINCIPAL                                                 */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.mainMenu {
+    min-height: calc(100vh - 140px);
+    padding: 40px 20px;
+}
+
+.containerMenu {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Seção de Boas-vindas */
+.secaoBemVindo {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.secaoBemVindo h2 {
+    font-size: 32px;
+    color: var(--cor-primaria);
+    margin-bottom: 10px;
+}
+
+.secaoBemVindo p {
+    font-size: 16px;
+    color: var(--cor-texto-claro);
+}
+
+/* Grid de Opções */
+.gridOpcoes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cardOpcao {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transicao);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+}
+
+.cardOpcao:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--sombra);
+    border-color: var(--cor-primaria);
+}
+
+.iconCard {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.cardOpcao h3 {
+    font-size: 20px;
+    color: var(--cor-primaria);
+    margin-bottom: 10px;
+}
+
+.cardOpcao p {
+    font-size: 14px;
+    color: var(--cor-texto-claro);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.botaoCard {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.cardOpcao:hover .botaoCard {
+    transform: translateX(5px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* MODALS                                                             */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.mostrar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.conteudoModal {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.conteudoModal h2 {
+    color: var(--cor-primaria);
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.botaoFecharModal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    transition: var(--transicao);
+}
+
+.botaoFecharModal:hover {
+    color: var(--cor-primaria);
+    transform: rotate(90deg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* CONTEÚDO - HISTÓRICO                                               */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.conteudoHistorico {
+    margin-top: 20px;
+}
+
+.itemHistorico {
+    background: var(--cor-fundo);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--cor-primaria);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dataHistorico {
+    font-size: 12px;
+    color: var(--cor-texto-claro);
+}
+
+.pontoHistorico {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--cor-sucesso);
+    background: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.historicoVazio {
+    text-align: center;
+    padding: 30px;
+    color: var(--cor-texto-claro);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* CONTEÚDO - PERFIL                                                  */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.conteudoPerfil {
+    margin-top: 20px;
+}
+
+.cartaoPerfil {
+    background: var(--cor-fundo);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.linhaInfo {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.linhaInfo:last-child {
+    border-bottom: none;
+}
+
+.labelInfo {
+    font-weight: 600;
+    color: var(--cor-primaria);
+}
+
+.valorInfo {
+    color: var(--cor-texto);
+}
+
+.estatisticas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.cartaoEstat {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid var(--cor-borda);
+}
+
+.cartaoEstat h4 {
+    color: var(--cor-texto-claro);
+    font-size: 12px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.cartaoEstat .numero {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--cor-primaria);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* CONTEÚDO - SOBRE                                                   */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.conteudoSobre {
+    margin-top: 20px;
+}
+
+.secaoSobre {
+    margin-bottom: 30px;
+}
+
+.secaoSobre h3 {
+    color: var(--cor-primaria);
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.secaoSobre p {
+    color: var(--cor-texto-claro);
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.criadores {
+    background: var(--cor-fundo);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.criadores h4 {
+    color: var(--cor-primaria);
+    margin-bottom: 15px;
+}
+
+.criador {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--cor-secundaria);
+}
+
+.criador:last-child {
+    margin-bottom: 0;
+}
+
+.nomeChef {
+    font-weight: 600;
+    color: var(--cor-primaria);
+    margin-bottom: 5px;
+}
+
+.cargoChef {
+    font-size: 13px;
+    color: var(--cor-texto-claro);
+}
+
+.versao {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid var(--cor-borda);
+    color: var(--cor-texto-claro);
+    font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RODAPÉ                                                             */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.rodapeMenu {
+    background-color: var(--cor-texto);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.rodapeMenu p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE                                                     */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .containerCabecalho {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .infoUsuarioMenu {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .secaoBemVindo h2 {
+        font-size: 24px;
+    }
+
+    .gridOpcoes {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 500px;
+    }
+
+    .conteudoModal {
+        max-width: 90%;
+        padding: 25px;
+    }
+
+    .estatisticas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .cabecalhoMenu {
+        padding: 10px 0;
+    }
+
+    .logoMenu h1 {
+        font-size: 18px;
+    }
+
+    .nomeUsuario {
+        font-size: 14px;
+    }
+
+    .pontuacaoUsuario {
+        font-size: 11px;
+    }
+
+    .botaySair {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .secaoBemVindo h2 {
+        font-size: 20px;
+    }
+
+    .gridOpcoes {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .cardOpcao {
+        padding: 18px;
+    }
+
+    .iconCard {
+        font-size: 40px;
+    }
+
+    .cardOpcao h3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .cardOpcao p {
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    .botaoCard {
+        font-size: 11px;
+        padding: 8px 14px;
+    }
+
+    .mainMenu {
+        min-height: calc(100vh - 120px);
+        padding: 20px 15px;
+    }
+
+    .conteudoModal {
+        max-width: 95%;
+        padding: 20px;
+        max-height: 90vh;
+    }
+
+    .rodapeMenu {
+        padding: 12px 15px;
+        font-size: 11px;
+    }
+
+    .rodapeMenu p {
+        font-size: 10px;
+        line-height: 1.3;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - CELULAR PEQUENO (360px)                           */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 360px) {
+    .cabecalhoMenu {
+        padding: 8px 0;
+    }
+
+    .containerCabecalho {
+        padding: 0 10px;
+        gap: 10px;
+    }
+
+    .logoMenu h1 {
+        font-size: 16px;
+    }
+
+    .infoUsuarioMenu {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .dadosUsuario {
+        width: 100%;
+        align-items: center;
+    }
+
+    .nomeUsuario {
+        font-size: 12px;
+    }
+
+    .pontuacaoUsuario {
+        font-size: 10px;
+    }
+
+    .botaySair {
+        padding: 5px 10px;
+        font-size: 11px;
+        width: 100%;
+    }
+
+    .secaoBemVindo h2 {
+        font-size: 18px;
+    }
+
+    .secaoBemVindo p {
+        font-size: 13px;
+    }
+
+    .gridOpcoes {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        max-width: 100%;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    .cardOpcao {
+        padding: 15px;
+    }
+
+    .iconCard {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .cardOpcao h3 {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .cardOpcao p {
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+
+    .botaoCard {
+        font-size: 10px;
+        padding: 7px 12px;
+    }
+
+    .mainMenu {
+        min-height: calc(100vh - 100px);
+        padding: 15px 10px;
+    }
+
+    .conteudoModal {
+        max-width: 95%;
+        padding: 15px;
+        max-height: 85vh;
+    }
+
+    .fecharModal {
+        width: 30px;
+        height: 30px;
+    }
+
+    .rodapeMenu {
+        padding: 8px 10px;
+        font-size: 9px;
+    }
+
+    .rodapeMenu p {
+        font-size: 8px;
+        line-height: 1.2;
+        word-break: break-word;
+    }
+}

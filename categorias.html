@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolher Categoria - Sistema de Quiz</title>
+    <link rel="stylesheet" href="categorias.css">
+</head>
+
+<body>
+    <div class="containerCategorias">
+        <div class="caixaCategorias">
+            <!-- Cabeçalho -->
+            <div class="cabecalhoCategorias">
+                <h1>🎯 Escolha uma Categoria</h1>
+                <p>Selecione o tema do quiz que deseja responder</p>
+            </div>
+
+            <!-- Grid de Categorias -->
+            <div class="gridCategorias">
+                <!-- Card Tecnologia -->
+                <div class="cardCategoria" onclick="selecionarCategoria('tecnologia')">
+                    <div class="iconCategoria">💻</div>
+                    <h2>Tecnologia</h2>
+                    <p>Programação, hardware e inovação tecnológica</p>
+                    <span class="botaoCard">Começar →</span>
+                </div>
+
+                <!-- Card Desporto -->
+                <div class="cardCategoria" onclick="selecionarCategoria('desporto')">
+                    <div class="iconCategoria">⚽</div>
+                    <h2>Desporto</h2>
+                    <p>Futebol, ténis, atletismo e outros desportos</p>
+                    <span class="botaoCard">Começar →</span>
+                </div>
+
+                <!-- Card Cultura Geral -->
+                <div class="cardCategoria" onclick="selecionarCategoria('cultura')">
+                    <div class="iconCategoria">🌍</div>
+                    <h2>Cultura Geral</h2>
+                    <p>História, geografia, artes e conhecimento geral</p>
+                    <span class="botaoCard">Começar →</span>
+                </div>
+
+                <!-- Card Matemática -->
+                <div class="cardCategoria" onclick="selecionarCategoria('matematica')">
+                    <div class="iconCategoria">🔢</div>
+                    <h2>Matemática</h2>
+                    <p>Aritmética, geometria, álgebra e lógica matemática</p>
+                    <span class="botaoCard">Começar →</span>
+                </div>
+            </div>
+
+            <!-- Botão Voltar -->
+            <div class="secaoVolta">
+                <button onclick="voltarMenu()" class="botaoVolta">← Voltar ao Menu</button>
+            </div>
+
+            <!-- Rodapé -->
+            <div class="rodapeCategorias">
+                <p>Quiz Master v1.0.0 | Escolha sua categoria favorita</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="autenticacao.js"></script>
+    <script src="categorias.js"></script>
+</body>
+
+</html>

@@ -39,7 +39,7 @@ function resetarEstadoQuiz() {
 
 /**
  * Inicializa o quiz
- * Carrega perguntas do JSON e prepara a interface
+ * Carrega perguntas do JSON de acordo com a categoria selecionada
  */
 async function inicializarQuiz() {
     try {
@@ -52,14 +52,27 @@ async function inicializarQuiz() {
         // Atualizar interface de acordo com autenticação
         atualizarInterfaceUsuario();
 
-        // Carregar perguntas do arquivo JSON
-        const resposta = await fetch('questions.json');
+        // Obter categoria selecionada do localStorage
+        const categoriaId = localStorage.getItem('quiz_categoria_selecionada') || 'tecnologia';
+        console.log(`📚 Carregando quiz da categoria: ${categoriaId}`);
+
+        // Carregar perguntas do arquivo JSON de categorias
+        const resposta = await fetch('questions-categorias.json');
         const dados = await resposta.json();
 
-        // Pegar primeiro quiz disponível
-        estadoQuiz.perguntas = dados.quizzes[0].perguntas;
+        // Procurar a categoria selecionada
+        const categoria = dados.categorias.find(c => c.id === categoriaId);
+
+        if (!categoria) {
+            throw new Error(`Categoria "${categoriaId}" não encontrada`);
+        }
+
+        // Pegar perguntas da categoria
+        estadoQuiz.perguntas = categoria.perguntas;
         estadoQuiz.respostas = new Array(estadoQuiz.perguntas.length).fill(null);
         estadoQuiz.tempoInicio = Date.now();
+
+        console.log(`✅ ${estadoQuiz.perguntas.length} perguntas carregadas da categoria ${categoria.nome}`);
 
         // Iniciar cronômetro
         iniciarCronometro();

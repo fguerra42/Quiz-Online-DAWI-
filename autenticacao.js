@@ -207,10 +207,10 @@ function processarLogin(evento) {
     console.log('Resultado do login:', resultado);
 
     if (resultado.sucesso) {
-        console.log('Login bem-sucedido, redirecionando...');
-        // Aguardar um momento e depois redirecionar
+        console.log('Login bem-sucedido, redirecionando para menu...');
+        // Aguardar um momento e depois redirecionar para o menu principal
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'menu.html';
         }, 300);
     } else {
         console.log('Login falhou:', resultado.mensagem);
@@ -224,6 +224,7 @@ function processarLogin(evento) {
  */
 function processarRegistro(evento) {
     evento.preventDefault();
+    console.log('=== INICIANDO REGISTRO ===');
 
     // Obter valores do formulário
     const nome = document.getElementById('nomeRegistro').value.trim();
@@ -235,28 +236,64 @@ function processarRegistro(evento) {
     limparErros();
     limparMensagens();
 
-    // Validações
+    // ✅ VALIDAÇÃO 1: Verificar se nome está preenchido
+    if (!nome || nome.length === 0) {
+        console.log('❌ Erro: Nome vazio');
+        mostrarErro('erroNomeRegistro', 'Digite seu nome');
+        return; // PARAR AQUI - não continuar
+    }
+
     if (nome.length < 3) {
+        console.log('❌ Erro: Nome muito curto');
         mostrarErro('erroNomeRegistro', 'Nome deve ter no mínimo 3 caracteres');
-        return;
+        return; // PARAR AQUI - não continuar
     }
 
+    // ✅ VALIDAÇÃO 2: Verificar email vazio
+    if (!email || email.length === 0) {
+        console.log('❌ Erro: Email vazio');
+        mostrarErro('erroEmailRegistro', 'Digite seu email');
+        return; // PARAR AQUI - não continuar
+    }
+
+    // ✅ VALIDAÇÃO 3: Validar formato de email
     if (!validarEmail(email)) {
+        console.log('❌ Erro: Email inválido');
         mostrarErro('erroEmailRegistro', 'Email inválido');
-        return;
+        return; // PARAR AQUI - não continuar
     }
 
+    // ✅ VALIDAÇÃO 4: Verificar se senha está preenchida
+    if (!senha || senha.length === 0) {
+        console.log('❌ Erro: Senha vazia');
+        mostrarErro('erroSenhaRegistro', 'Digite sua senha');
+        return; // PARAR AQUI - não continuar
+    }
+
+    // ✅ VALIDAÇÃO 5: Verificar tamanho da senha
     if (senha.length < 6) {
+        console.log('❌ Erro: Senha muito curta');
         mostrarErro('erroSenhaRegistro', 'Senha deve ter no mínimo 6 caracteres');
-        return;
+        return; // PARAR AQUI - não continuar
     }
 
+    // ✅ VALIDAÇÃO 6: Verificar confirmação de senha vazia
+    if (!confirmarSenha || confirmarSenha.length === 0) {
+        console.log('❌ Erro: Confirmação de senha vazia');
+        mostrarErro('erroConfirmarSenha', 'Confirme sua senha');
+        return; // PARAR AQUI - não continuar
+    }
+
+    // ✅ VALIDAÇÃO 7: Verificar se as senhas são iguais
     if (senha !== confirmarSenha) {
+        console.log('❌ Erro: Senhas não conferem');
         mostrarErro('erroConfirmarSenha', 'As senhas não conferem');
-        return;
+        return; // PARAR AQUI - não continuar
     }
 
-    // Registrar usuário
+    // ✅ TODAS AS VALIDAÇÕES PASSARAM - Agora registrar usuário
+    console.log('✅ Todas as validações OK. Registrando usuário...');
+
     const resultado = gerenciador.registrarUsuario({
         nome: nome,
         email: email,
@@ -264,6 +301,7 @@ function processarRegistro(evento) {
     });
 
     if (resultado.sucesso) {
+        console.log('✅ Registro bem-sucedido!');
         mostrarMensagemSucessoRegistro(resultado.mensagem);
         // Limpar formulário
         document.getElementById('formularioRegistro').reset();
@@ -272,6 +310,7 @@ function processarRegistro(evento) {
             window.location.href = 'login.html';
         }, 2000);
     } else {
+        console.log('❌ Erro no registro:', resultado.mensagem);
         mostrarMensagemErroRegistro(resultado.mensagem);
     }
 }

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal - Sistema de Quiz</title>
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="autenticacao.css">
+</head>
+
+<body>
+    <!-- Cabeçalho com informações do usuário -->
+    <header class="cabecalhoMenu">
+        <div class="containerCabecalho">
+            <div class="logoMenu">
+                <h1>🎓 Quiz Master</h1>
+            </div>
+            <div class="infoUsuarioMenu">
+                <div class="dadosUsuario">
+                    <span id="nomeUsuarioMenu" class="nomeUsuario">Carregando...</span>
+                    <span id="pontuacaoUsuarioMenu" class="pontuacaoUsuario">0 pontos</span>
+                </div>
+                <button onclick="fazerLogout()" class="botaySair" title="Sair da aplicação">🚪 Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="mainMenu">
+        <div class="containerMenu">
+            <!-- Seção de boas-vindas -->
+            <section class="secaoBemVindo">
+                <h2 id="mensagemBemVindo">Bem-vindo!</h2>
+                <p>Escolha uma opção abaixo para continuar</p>
+            </section>
+
+            <!-- Grid de opções principais -->
+            <section class="gridOpcoes">
+                <!-- Card Jogar -->
+                <div class="cardOpcao" onclick="irParaQuiz()">
+                    <div class="iconCard">🎮</div>
+                    <h3>Jogar</h3>
+                    <p>Teste seus conhecimentos com nosso quiz interativo</p>
+                    <span class="botaoCard">Começar Quiz →</span>
+                </div>
+
+                <!-- Card Histórico -->
+                <div class="cardOpcao" onclick="mostrarHistorico()">
+                    <div class="iconCard">📊</div>
+                    <h3>Histórico</h3>
+                    <p>Veja todas as suas tentativas e pontuações anteriores</p>
+                    <span class="botaoCard">Ver Histórico →</span>
+                </div>
+
+                <!-- Card Perfil -->
+                <div class="cardOpcao" onclick="mostrarPerfil()">
+                    <div class="iconCard">👤</div>
+                    <h3>Perfil</h3>
+                    <p>Visualize suas estatísticas e informações pessoais</p>
+                    <span class="botaoCard">Meu Perfil →</span>
+                </div>
+
+                <!-- Card Sobre -->
+                <div class="cardOpcao" onclick="mostrarSobre()">
+                    <div class="iconCard">ℹ️</div>
+                    <h3>Sobre</h3>
+                    <p>Conheça mais sobre a aplicação e seus criadores</p>
+                    <span class="botaoCard">Saiba Mais →</span>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal para Histórico -->
+    <div id="modalHistorico" class="modal">
+        <div class="conteudoModal">
+            <button class="botaoFecharModal" onclick="fecharModal('modalHistorico')">✕</button>
+            <h2>📊 Seu Histórico de Tentativas</h2>
+            <div id="conteudoHistorico" class="conteudoHistorico">
+                <!-- Será preenchido com JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Perfil -->
+    <div id="modalPerfil" class="modal">
+        <div class="conteudoModal">
+            <button class="botaoFecharModal" onclick="fecharModal('modalPerfil')">✕</button>
+            <h2>👤 Meu Perfil</h2>
+            <div id="conteudoPerfil" class="conteudoPerfil">
+                <!-- Será preenchido com JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Sobre -->
+    <div id="modalSobre" class="modal">
+        <div class="conteudoModal">
+            <button class="botaoFecharModal" onclick="fecharModal('modalSobre')">✕</button>
+            <h2>ℹ️ Sobre a Aplicação</h2>
+            <div id="conteudoSobre" class="conteudoSobre">
+                <!-- Será preenchido com JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="rodapeMenu">
+        <p>&copy; 2025 Quiz Master | Sistema de Quiz Interativo</p>
+    </footer>
+
+    <script src="autenticacao.js"></script>
+    <script src="menu.js"></script>
+</body>
+
+</html>

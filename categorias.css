@@ -1,0 +1,508 @@
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Estilos da Página de Categorias                                    */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cor-primaria: #667eea;
+    --cor-secundaria: #764ba2;
+    --cor-fundo: #f8f9fa;
+    --cor-texto: #333;
+    --cor-texto-claro: #666;
+    --sombra: 0 5px 15px rgba(0, 0, 0, 0.08);
+    --sombra-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --transicao: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Container Principal                                                */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.containerCategorias {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.caixaCategorias {
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--sombra-lg);
+    overflow: hidden;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Cabeçalho                                                           */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.cabecalhoCategorias {
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: white;
+    padding: 45px 30px;
+    text-align: center;
+}
+
+.cabecalhoCategorias h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.cabecalhoCategorias p {
+    font-size: 16px;
+    opacity: 0.95;
+    margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Grid de Categorias                                                 */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.gridCategorias {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    padding: 40px 30px;
+}
+
+.cardCategoria {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 30px 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transicao);
+    box-shadow: var(--sombra);
+}
+
+.cardCategoria:hover {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+    transform: translateY(-5px);
+}
+
+.iconCategoria {
+    font-size: 50px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.cardCategoria h2 {
+    font-size: 22px;
+    color: var(--cor-primaria);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.cardCategoria p {
+    font-size: 13px;
+    color: var(--cor-texto-claro);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    min-height: 35px;
+}
+
+.botaoCard {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.cardCategoria:hover .botaoCard {
+    transform: translateX(5px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Seção de Volta                                                     */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.secaoVolta {
+    padding: 0 30px 20px;
+    text-align: center;
+}
+
+.botaoVolta {
+    background: #f0f0f0;
+    color: var(--cor-texto);
+    border: 2px solid #e0e0e0;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: var(--transicao);
+}
+
+.botaoVolta:hover {
+    background: #e0e0e0;
+    border-color: var(--cor-primaria);
+    color: var(--cor-primaria);
+}
+
+.botaoVolta:active {
+    transform: translateY(2px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Rodapé                                                              */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+.rodapeCategorias {
+    background: #f5f5f5;
+    padding: 15px 30px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    color: var(--cor-texto-claro);
+    font-size: 12px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - TABLET (768px)                                    */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .containerCategorias {
+        max-width: 95%;
+    }
+
+    .cabecalhoCategorias {
+        padding: 35px 25px;
+    }
+
+    .cabecalhoCategorias h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .cabecalhoCategorias p {
+        font-size: 14px;
+    }
+
+    .gridCategorias {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 30px 25px;
+    }
+
+    .cardCategoria {
+        padding: 25px 20px;
+    }
+
+    .iconCategoria {
+        font-size: 40px;
+    }
+
+    .cardCategoria h2 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .cardCategoria p {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - CELULAR (480px)                                   */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .containerCategorias {
+        max-width: 100%;
+    }
+
+    .caixaCategorias {
+        border-radius: 12px;
+    }
+
+    .cabecalhoCategorias {
+        padding: 30px 20px;
+    }
+
+    .cabecalhoCategorias h1 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .cabecalhoCategorias p {
+        font-size: 13px;
+    }
+
+    .gridCategorias {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 25px 20px;
+    }
+
+    .cardCategoria {
+        padding: 20px 15px;
+        border-radius: 10px;
+    }
+
+    .iconCategoria {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+
+    .cardCategoria h2 {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .cardCategoria p {
+        font-size: 11px;
+        margin-bottom: 12px;
+        min-height: auto;
+    }
+
+    .botaoCard {
+        padding: 8px 14px;
+        font-size: 11px;
+    }
+
+    .secaoVolta {
+        padding: 0 20px 15px;
+    }
+
+    .botaoVolta {
+        padding: 10px 20px;
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .rodapeCategorias {
+        padding: 12px 20px;
+        font-size: 11px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - CELULAR PEQUENO (360px)                           */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+    .caixaCategorias {
+        border-radius: 10px;
+    }
+
+    .cabecalhoCategorias {
+        padding: 25px 15px;
+    }
+
+    .cabecalhoCategorias h1 {
+        font-size: 22px;
+        margin-bottom: 8px;
+        word-wrap: break-word;
+    }
+
+    .cabecalhoCategorias p {
+        font-size: 13px;
+        word-wrap: break-word;
+    }
+
+    .gridCategorias {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px 15px;
+    }
+
+    .cardCategoria {
+        padding: 18px 12px;
+        min-height: auto;
+    }
+
+    .iconCategoria {
+        font-size: 35px;
+        margin-bottom: 10px;
+    }
+
+    .cardCategoria h2 {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .cardCategoria p {
+        font-size: 12px;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+
+    .botaoCard {
+        font-size: 12px;
+        padding: 9px 15px;
+    }
+
+    .secaoVolta {
+        padding: 12px 15px;
+    }
+
+    .botaoVolta {
+        padding: 11px 18px;
+        font-size: 13px;
+        width: 100%;
+        word-wrap: break-word;
+    }
+
+    .rodapeCategorias {
+        padding: 10px 12px;
+        font-size: 10px;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* RESPONSIVIDADE - CELULAR PEQUENO (360px)                           */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 360px) {
+    .caixaCategorias {
+        border-radius: 8px;
+        margin: 0 5px;
+    }
+
+    .cabecalhoCategorias {
+        padding: 20px 12px;
+    }
+
+    .cabecalhoCategorias h1 {
+        font-size: 18px;
+        margin-bottom: 6px;
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .cabecalhoCategorias p {
+        font-size: 11px;
+        margin: 0;
+        word-wrap: break-word;
+    }
+
+    .gridCategorias {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 15px 10px;
+    }
+
+    .cardCategoria {
+        padding: 15px 10px;
+    }
+
+    .iconCategoria {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .cardCategoria h2 {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+
+    .cardCategoria p {
+        font-size: 10px;
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    .botaoCard {
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+
+    .secaoVolta {
+        padding: 10px 10px;
+    }
+
+    .botaoVolta {
+        padding: 10px 15px;
+        font-size: 12px;
+        width: 100%;
+    }
+
+    .rodapeCategorias {
+        padding: 8px 8px;
+        font-size: 9px;
+        line-height: 1.3;
+        word-break: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
+/* Animações de Carregamento                                          */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cardCategoria {
+    animation: slideIn 0.5s ease forwards;
+}
+
+.cardCategoria:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.cardCategoria:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.cardCategoria:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.cardCategoria:nth-child(4) {
+    animation-delay: 0.4s;
+}
