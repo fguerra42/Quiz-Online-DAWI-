@@ -153,28 +153,33 @@ body {
 .secaoVolta {
     padding: 0 30px 20px;
     text-align: center;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.botaoVolta {
-    background: #f0f0f0;
-    color: var(--cor-texto);
-    border: 2px solid #e0e0e0;
+.botaoVoltaMenu {
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: white;
+    border: none;
     padding: 12px 25px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
     transition: var(--transicao);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    min-width: 200px;
 }
 
-.botaoVolta:hover {
-    background: #e0e0e0;
-    border-color: var(--cor-primaria);
-    color: var(--cor-primaria);
+.botaoVoltaMenu:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-.botaoVolta:active {
-    transform: translateY(2px);
+.botaoVoltaMenu:active {
+    transform: translateY(0);
 }
 
 /* ═══════════════════════════════════════════════════════════════════ */
@@ -453,12 +458,15 @@ body {
 
     .secaoVolta {
         padding: 10px 10px;
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .botaoVolta {
+    .botaoVoltaMenu {
         padding: 10px 15px;
         font-size: 12px;
         width: 100%;
+        min-width: auto;
     }
 
     .rodapeCategorias {

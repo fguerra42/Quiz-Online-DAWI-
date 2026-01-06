@@ -137,17 +137,25 @@ body {
     border-radius: 10px;
     margin-bottom: 20px;
     box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .infoProgresso {
-    margin-bottom: 12px;
+    margin-bottom: 0;
     font-size: 14px;
     color: var(--gray-color);
     font-weight: 500;
+    flex: 1;
+    min-width: 150px;
 }
 
 .wrapperBarraProgresso {
-    width: 100%;
+    flex: 1;
+    min-width: 200px;
     height: 10px;
     background: var(--light-color);
     border-radius: 10px;
@@ -168,6 +176,34 @@ body {
     width: 0%;
     transition: width 0.5s ease-in-out;
     border-radius: 10px;
+}
+
+.botaoVoltarCategorias {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--success-color));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+    display: none;
+}
+
+.botaoVoltarCategorias.visivel {
+    display: block;
+}
+
+.botaoVoltarCategorias:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+}
+
+.botaoVoltarCategorias:active {
+    transform: translateY(0);
 }
 
 /* ===== QUIZ CONTAINER ===== */
@@ -193,6 +229,180 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ===== TIMER DA PERGUNTA ===== */
+.containerTempoResposta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 20px;
+}
+
+.timerPergunta {
+    flex-shrink: 0;
+}
+
+.circuloTempo {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.circuloTempo svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.circuloTempo .circuloFundo {
+    fill: none;
+    stroke: var(--light-color);
+    stroke-width: 4;
+}
+
+.circuloTempo .circuloProgresso {
+    fill: none;
+    stroke: linear-gradient(135deg, var(--primary-color), var(--success-color));
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 282.7;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+}
+
+.circuloTempo.alerta .circuloProgresso {
+    stroke: linear-gradient(135deg, var(--warning-color), var(--danger-color));
+    animation: pulseAlerta 0.6s ease infinite;
+}
+
+.textoTempo {
+    position: absolute;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.circuloTempo.alerta .textoTempo {
+    color: var(--danger-color);
+}
+
+@keyframes pulseAlerta {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* ===== MENSAGEM TEMPO ESGOTADO ===== */
+.mensagemTempoEsgotado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeInMensagem 0.3s ease-in-out;
+}
+
+@keyframes fadeInMensagem {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.conteudoMensagemTempo {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    width: 90%;
+    animation: slideUpMensagem 0.5s ease-out;
+}
+
+@keyframes slideUpMensagem {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.conteudoMensagemTempo .iconeMensagem {
+    font-size: 60px;
+    margin-bottom: 20px;
+    display: block;
+    animation: bounce 0.8s ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.conteudoMensagemTempo h3 {
+    font-size: 28px;
+    color: var(--danger-color);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.conteudoMensagemTempo p {
+    font-size: 16px;
+    color: var(--gray-color);
+    margin: 0;
+}
+
+.respostaCorretaMensagem {
+    background: rgba(46, 204, 113, 0.1);
+    border: 2px solid var(--success-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    color: var(--success-color);
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.avisoSemPontos {
+    color: var(--warning-color);
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 12px !important;
 }
 
 .numeroQuestao {
@@ -598,6 +808,43 @@ body {
         flex-direction: column;
         width: 100%;
     }
+
+    .containerProgresso {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .infoProgresso {
+        width: 100%;
+    }
+
+    .wrapperBarraProgresso {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .botaoVoltarCategorias {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .containerTempoResposta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .timerPergunta {
+        align-self: center;
+    }
+
+    .circuloTempo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .textoTempo {
+        font-size: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -636,6 +883,33 @@ body {
     .botaoSair {
         padding: 6px 12px;
         font-size: 11px;
+    }
+
+    .containerProgresso {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px;
+    }
+
+    .botaoVoltarCategorias {
+        width: 100%;
+        font-size: 12px;
+        padding: 9px 15px;
+        min-width: auto;
+    }
+
+    .containerTempoResposta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .circuloTempo {
+        width: 65px;
+        height: 65px;
+    }
+
+    .textoTempo {
+        font-size: 18px;
     }
 }
 

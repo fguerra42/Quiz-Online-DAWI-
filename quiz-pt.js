@@ -19,7 +19,10 @@ const estadoQuiz = {
     tempoInicio: null,          // Hora que o quiz começou
     tempoDecorrido: 0,          // Quantos segundos já passaram
     concluido: false,           // Quiz terminou?
-    usuarioLogado: null         // Dados do usuário que está fazendo o quiz
+    usuarioLogado: null,        // Dados do usuário que está fazendo o quiz
+    tempoRestantePergunta: 15,  // Tempo restante para responder (15 segundos)
+    intervaoCronometroPergunта: null, // ID do intervalo do timer por pergunta
+    respostasNoTempo: []        // Flag para saber se respondeu no tempo (true/false por pergunta)
 };
 
 /* ─────────────────────────────────────────────────────────────────── */
@@ -37,10 +40,17 @@ function resetarEstadoQuiz() {
     estadoQuiz.tempoDecorrido = 0;      // Zera tempo decorrido
     estadoQuiz.concluido = false;       // Quiz não está concluído
     estadoQuiz.usuarioLogado = null;    // Sem usuário
+    estadoQuiz.tempoRestantePergunta = 15;  // Reseta tempo da pergunta
+    estadoQuiz.respostasNoTempo = [];   // Limpa flag de respostas no tempo
 
     // Se havia um cronômetro rodando, parar
     if (window.intervaloCronometro) {
         clearInterval(window.intervaloCronometro);
+    }
+
+    // Se havia timer da pergunta rodando, parar
+    if (estadoQuiz.intervaoCronometroPergunта) {
+        clearInterval(estadoQuiz.intervaoCronometroPergunта);
     }
 }
 
@@ -81,6 +91,7 @@ async function inicializarQuiz() {
         // PASSO 6: Colocar as perguntas no estado do quiz
         estadoQuiz.perguntas = categoria.perguntas;
         estadoQuiz.respostas = new Array(estadoQuiz.perguntas.length).fill(null);
+        estadoQuiz.respostasNoTempo = new Array(estadoQuiz.perguntas.length).fill(true); // True = respondeu no tempo
         estadoQuiz.tempoInicio = Date.now();
 
         console.log(`✅ ${estadoQuiz.perguntas.length} perguntas carregadas`);
@@ -136,10 +147,29 @@ function renderizarPergunta() {
     // Atualizar barra de progresso (quanto do quiz já foi feito)
     atualizarBarraProgresso();
 
+    // Resetar tempo da pergunta quando renderiza pergunta nova
+    estadoQuiz.tempoRestantePergunta = 15;
+
+    // Se havia timer anterior, limpar
+    if (estadoQuiz.intervaoCronometroPergunта) {
+        clearInterval(estadoQuiz.intervaoCronometroPergunта);
+    }
+
     // Criar o HTML com a pergunta e opções
     containerQuiz.innerHTML = `
         <div class="perguntaQuiz">
-            <div class="numeroPergunта">Pergunta ${estadoQuiz.perguntaAtual + 1} de ${estadoQuiz.perguntas.length}</div>
+            <div class="containerTempoResposta">
+                <div class="numeroPergunта">Pergunta ${estadoQuiz.perguntaAtual + 1} de ${estadoQuiz.perguntas.length}</div>
+                <div class="timerPergunta">
+                    <div class="circuloTempo ${estadoQuiz.tempoRestantePergunta <= 5 ? 'alerta' : ''}">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="circuloFundo"></circle>
+                            <circle cx="50" cy="50" r="45" class="circuloProgresso" style="stroke-dashoffset: ${282.7 * (1 - (estadoQuiz.tempoRestantePergunta / 15))}"></circle>
+                        </svg>
+                        <span class="textoTempo" id="tempoRestante">${estadoQuiz.tempoRestantePergunta}s</span>
+                    </div>
+                </div>
+            </div>
             <h2 class="textoPergunta">${escaparHTML(perguntaAtual.pergunta)}</h2>
             
             <div class="containerOpcoes">
@@ -172,6 +202,95 @@ function renderizarPergunta() {
 
     // Rolar suavemente até a pergunta
     document.querySelector('.perguntaQuiz').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // Iniciar timer de 15 segundos para essa pergunta
+    iniciarTimerPergunta();
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  5.5. FUNÇÃO: Timer da Pergunta - Countdown de 15 segundos          */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Inicia o countdown de 15 segundos para responder a pergunta
+function iniciarTimerPergunta() {
+    // Se a pergunta já foi respondida, não iniciar timer
+    if (estadoQuiz.respostas[estadoQuiz.perguntaAtual] !== null) {
+        return;
+    }
+
+    estadoQuiz.intervaoCronometroPergunта = setInterval(() => {
+        estadoQuiz.tempoRestantePergunta--;
+
+        // Atualizar display do tempo
+        const elementoTempo = document.getElementById('tempoRestante');
+        if (elementoTempo) {
+            elementoTempo.textContent = estadoQuiz.tempoRestantePergunta + 's';
+        }
+
+        // Atualizar cor do círculo quando estiver na reta final
+        const circulo = document.querySelector('.circuloTempo');
+        if (circulo) {
+            if (estadoQuiz.tempoRestantePergunta <= 5) {
+                circulo.classList.add('alerta');
+            } else {
+                circulo.classList.remove('alerta');
+            }
+        }
+
+        // Atualizar barra do progresso do tempo
+        const circuloProgresso = document.querySelector('.circuloProgresso');
+        if (circuloProgresso) {
+            const offset = 282.7 * (1 - (estadoQuiz.tempoRestantePergunta / 15));
+            circuloProgresso.style.strokeDashoffset = offset;
+        }
+
+        // Se acabou o tempo, selecionar a resposta correta automaticamente
+        if (estadoQuiz.tempoRestantePergunta <= 0) {
+            clearInterval(estadoQuiz.intervaoCronometroPergunта);
+
+            // Se não respondeu, mostrar mensagem e selecionar a resposta correta
+            if (estadoQuiz.respostas[estadoQuiz.perguntaAtual] === null) {
+                // Marcar como respondido FORA DO TEMPO (sem pontos)
+                estadoQuiz.respostasNoTempo[estadoQuiz.perguntaAtual] = false;
+
+                // Mostrar mensagem de tempo esgotado com a resposta correta
+                const perguntaAtual = estadoQuiz.perguntas[estadoQuiz.perguntaAtual];
+                mostrarMensagemTempoEsgotado(perguntaAtual);
+
+                // Após 2 segundos, selecionar a resposta correta
+                setTimeout(() => {
+                    selecionarResposta(perguntaAtual.respostaCorreta);
+                }, 2000);
+            }
+        }
+    }, 1000);
+}
+
+// Mostra mensagem de tempo esgotado com a resposta correta
+function mostrarMensagemTempoEsgotado(pergunta) {
+    const containerQuiz = document.getElementById('containerQuiz');
+
+    // Criar elemento da mensagem
+    const mensagem = document.createElement('div');
+    mensagem.className = 'mensagemTempoEsgotado';
+    mensagem.innerHTML = `
+        <div class="conteudoMensagemTempo">
+            <div class="iconeMensagem">⏰</div>
+            <h3>Tempo Esgotado!</h3>
+            <p>A resposta correta era:</p>
+            <div class="respostaCorretaMensagem">
+                <strong>${escaparHTML(pergunta.opcoes[pergunta.respostaCorreta])}</strong>
+            </div>
+            <p class="avisoSemPontos">⚠️ Você não pontuou nesta pergunta</p>
+        </div>
+    `;
+
+    containerQuiz.appendChild(mensagem);
+
+    // Remover mensagem após 2 segundos
+    setTimeout(() => {
+        mensagem.remove();
+    }, 2000);
 }
 
 /* ─────────────────────────────────────────────────────────────────── */
@@ -190,7 +309,7 @@ function obterClasseOpcao(indice) {
     const eCorreta = indice === perguntaAtual.respostaCorreta;
     const eSelecionada = indice === estadoQuiz.respostas[estadoQuiz.perguntaAtual];
 
-    if (eCorreta) 
+    if (eCorreta)
         return 'correta';              // Verde ✓
     if (eSelecionada && !eCorreta)
         return 'incorreta';  // Vermelho ✗
@@ -222,7 +341,7 @@ function obterFeedbackOpcao(indice) {
 
 // Quando o usuário clica numa opção:
 // 1. Registra a resposta
-// 2. Se acertou, adiciona 10 pontos
+// 2. Se acertou E respondeu no tempo, adiciona 10 pontos
 // 3. Atualiza a tela para mostrar feedback
 function selecionarResposta(indice) {
     const perguntaAtual = estadoQuiz.perguntas[estadoQuiz.perguntaAtual];
@@ -230,8 +349,14 @@ function selecionarResposta(indice) {
     // Registrar qual opção o usuário escolheu
     estadoQuiz.respostas[estadoQuiz.perguntaAtual] = indice;
 
-    // Verificar se acertou e adicionar pontos (10 por acerto)
-    if (indice === perguntaAtual.respostaCorreta) {
+    // Parar o timer da pergunta quando responde
+    if (estadoQuiz.intervaoCronometroPergunта) {
+        clearInterval(estadoQuiz.intervaoCronometroPergunта);
+    }
+
+    // Verificar se acertou E respondeu no tempo para adicionar pontos (10 por acerto)
+    // Se respondeu fora do tempo (respostasNoTempo[perguntaAtual] === false), não ganha pontos
+    if (indice === perguntaAtual.respostaCorreta && estadoQuiz.respostasNoTempo[estadoQuiz.perguntaAtual] === true) {
         estadoQuiz.pontuacao += 10;
     }
 
@@ -281,6 +406,12 @@ function perguntaAnterior() {
 function finalizarQuiz() {
     estadoQuiz.concluido = true;
     document.getElementById('containerQuiz').style.display = 'none';
+
+    // Mostrar botão de voltar às categorias
+    const botaoVoltar = document.querySelector('.botaoVoltarCategorias');
+    if (botaoVoltar) {
+        botaoVoltar.classList.add('visivel');
+    }
 
     // Se há usuário logado, salvar os pontos dele
     if (estadoQuiz.usuarioLogado) {
@@ -355,6 +486,12 @@ function reiniciarQuiz() {
     estadoQuiz.tempoInicio = Date.now();
     estadoQuiz.tempoDecorrido = 0;
     estadoQuiz.concluido = false;
+
+    // Ocultar botão de voltar às categorias
+    const botaoVoltar = document.querySelector('.botaoVoltarCategorias');
+    if (botaoVoltar) {
+        botaoVoltar.classList.remove('visivel');
+    }
 
     // Mostrar quiz, esconder resultados e revisão
     document.getElementById('containerQuiz').style.display = 'block';
@@ -447,6 +584,29 @@ function iniciarCronometro() {
             document.getElementById('cronometroDisplay').textContent = exibicao;
         }
     }, 100);
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  12.5. FUNÇÃO: Voltar para Categorias                              */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Permite o usuário voltar para escolher outra categoria
+function voltarParaCategorias() {
+    // Parar cronômetro do quiz
+    if (window.intervaloCronometro) {
+        clearInterval(window.intervaloCronometro);
+    }
+
+    // Parar timer da pergunta
+    if (estadoQuiz.intervaoCronometroPergunта) {
+        clearInterval(estadoQuiz.intervaoCronometroPergunта);
+    }
+
+    // Resetar estado do quiz
+    resetarEstadoQuiz();
+
+    // Redirecionar para página de categorias
+    window.location.href = 'categorias.html';
 }
 
 /* ─────────────────────────────────────────────────────────────────── */
