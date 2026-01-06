@@ -1,104 +1,125 @@
 /* ═══════════════════════════════════════════════════════════════════ */
-/* Script da Página de Menu Principal                                 */
+/*                 PÁGINA DE MENU PRINCIPAL                            */
+/*                  (Navegação e Informações)                          */
+/*                                                                       */
+/* Este arquivo gerencia:                                              */
+/* - Exibição do menu principal                                        */
+/* - Informações do usuário logado                                    */
+/* - Acesso ao histórico e perfil                                     */
+/* - Modais de informações e sobre                                    */
 /* ═══════════════════════════════════════════════════════════════════ */
 
-/**
- * Inicializar página do menu
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  INICIALIZAÇÃO DA PÁGINA                                            */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Quando a página carrega, executa a função inicializarMenu
 document.addEventListener('DOMContentLoaded', inicializarMenu);
 
+// Esta função:
+// 1. Verifica se o usuário está logado
+// 2. Se não está, redireciona para login
+// 3. Se está, carrega seus dados na página
 function inicializarMenu() {
-    console.log('=== INICIALIZANDO MENU ===');
-
-    // Verificar se usuário está logado
+    // PASSO 1: Obter dados do usuário logado
     const usuarioLogado = gerenciador.obterUsuarioLogado();
 
+    // PASSO 2: Se não está logado, redirecionar para login
     if (!usuarioLogado) {
-        console.log('❌ Usuário não autenticado. Redirecionando para login...');
         window.location.href = 'login.html';
         return;
     }
 
-    console.log('✅ Usuário autenticado:', usuarioLogado.nome);
-
-    // Carregar dados do usuário
+    // PASSO 3: Se está logado, carregar dados do usuário
     carregarDadosUsuario(usuarioLogado);
 }
 
-/**
- * Carrega e exibe dados do usuário no cabeçalho
- * @param {Object} usuario - Dados do usuário
- */
-function carregarDadosUsuario(usuario) {
-    console.log('📥 Carregando dados do usuário...');
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FUNÇÃO 1: Carregar Dados do Usuário                               */
+/* ─────────────────────────────────────────────────────────────────── */
 
-    // Atualizar nome
+// Esta função exibe os dados do usuário no cabeçalho e mensagem de boas-vindas
+function carregarDadosUsuario(usuario) {
+    // PASSO 1: Atualizar nome do usuário
+    // Mostra apenas o primeiro nome na página
     const nomeElement = document.getElementById('nomeUsuarioMenu');
     if (nomeElement) {
-        nomeElement.textContent = usuario.nome.split(' ')[0]; // Apenas primeiro nome
+        nomeElement.textContent = usuario.nome.split(' ')[0];
     }
 
-    // Atualizar pontuação
+    // PASSO 2: Atualizar pontuação
+    // Exibe total de pontos conseguidos até agora
     const pontuacaoElement = document.getElementById('pontuacaoUsuarioMenu');
     if (pontuacaoElement) {
         pontuacaoElement.textContent = `${usuario.pontuacao} pontos`;
     }
 
-    // Atualizar mensagem de boas-vindas
+    // PASSO 3: Atualizar mensagem de boas-vindas
+    // Muda a mensagem de acordo com a hora do dia
     const mensagemElement = document.getElementById('mensagemBemVindo');
     if (mensagemElement) {
         const hora = new Date().getHours();
         let saudacao = 'Bem-vindo';
 
+        // Se for de manhã (antes de 12:00)
         if (hora < 12) {
             saudacao = 'Bom dia';
-        } else if (hora < 18) {
+        }
+        // Se for de tarde (entre 12:00 e 18:00)
+        else if (hora < 18) {
             saudacao = 'Boa tarde';
-        } else {
+        }
+        // Se for de noite (depois de 18:00)
+        else {
             saudacao = 'Boa noite';
         }
 
         mensagemElement.textContent = `${saudacao}, ${usuario.nome.split(' ')[0]}!`;
     }
-
-    console.log('✅ Dados do usuário carregados');
 }
 
-/**
- * Redireciona para a página de seleção de categorias
- */
+/* ═══════════════════════════════════════════════════════════════════ */
+/*  FUNÇÕES DE NAVEGAÇÃO                                               */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FUNÇÃO 2: Ir Para Quiz                                            */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Esta função redireciona para a página de seleção de categorias
 function irParaQuiz() {
-    console.log('🎮 Redirecionando para seleção de categorias...');
     window.location.href = 'categorias.html';
 }
 
-/**
- * Exibe modal com histórico de tentativas
- */
-function mostrarHistorico() {
-    console.log('📊 Abrindo histórico...');
+/* ═══════════════════════════════════════════════════════════════════ */
+/*  FUNÇÕES DE MODAIS (Janelas de Informação)                          */
+/* ═══════════════════════════════════════════════════════════════════ */
 
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FUNÇÃO 3: Mostrar Histórico                                       */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Esta função mostra uma janela com todas as tentativas do usuário
+function mostrarHistorico() {
+    // PASSO 1: Obter dados do usuário logado
     const usuarioLogado = gerenciador.obterUsuarioLogado();
-    const modal = document.getElementById('modalHistorico');
     const conteudo = document.getElementById('conteudoHistorico');
 
-    if (!usuarioLogado || !usuarioLogado.historico) {
+    // PASSO 2: Se não tem histórico, mostrar mensagem vazia
+    if (!usuarioLogado || !usuarioLogado.historico || usuarioLogado.historico.length === 0) {
         conteudo.innerHTML = '<div class="historicoVazio">📭 Nenhuma tentativa registrada ainda.</div>';
         abrirModal('modalHistorico');
         return;
     }
 
-    if (usuarioLogado.historico.length === 0) {
-        conteudo.innerHTML = '<div class="historicoVazio">📭 Nenhuma tentativa registrada ainda.</div>';
-        abrirModal('modalHistorico');
-        return;
-    }
-
-    // Construir histórico (ordem reversa - mais recente primeiro)
+    // PASSO 3: Criar HTML do histórico (ordem reversa - mais recente primeiro)
     let html = '';
+    // Inverter o array para mostrar as tentativas mais recentes primeiro
     const historicoOrdenado = [...usuarioLogado.historico].reverse();
 
+    // Para cada tentativa, criar uma linha com data e pontos
     historicoOrdenado.forEach((tentativa, indice) => {
+        // Formatar a data para o formato brasileiro (DD/MM/YYYY HH:MM)
         const data = new Date(tentativa.data);
         const dataFormatada = data.toLocaleDateString('pt-BR', {
             day: '2-digit',
@@ -108,6 +129,7 @@ function mostrarHistorico() {
             minute: '2-digit'
         });
 
+        // Adicionar linha ao HTML
         html += `
             <div class="itemHistorico">
                 <div>
@@ -119,38 +141,45 @@ function mostrarHistorico() {
         `;
     });
 
+    // PASSO 4: Colocar HTML no modal e abrir
     conteudo.innerHTML = html;
     abrirModal('modalHistorico');
 }
 
-/**
- * Exibe modal com perfil do usuário
- */
-function mostrarPerfil() {
-    console.log('👤 Abrindo perfil...');
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FUNÇÃO 4: Mostrar Perfil                                          */
+/* ─────────────────────────────────────────────────────────────────── */
 
+// Esta função mostra uma janela com dados completos do usuário e estatísticas
+function mostrarPerfil() {
+    // PASSO 1: Obter dados do usuário logado
     const usuarioLogado = gerenciador.obterUsuarioLogado();
     const conteudo = document.getElementById('conteudoPerfil');
 
+    // PASSO 2: Se erro, mostrar mensagem de erro
     if (!usuarioLogado) {
         conteudo.innerHTML = '<p>Erro ao carregar perfil.</p>';
         abrirModal('modalPerfil');
         return;
     }
 
-    // Calcular estatísticas
+    // PASSO 3: Calcular estatísticas do usuário
+    // Número total de tentativas
     const totalTentativas = usuarioLogado.historico ? usuarioLogado.historico.length : 0;
+
+    // Pontuação média (somar todos os pontos e dividir pelo total)
     const pontuacaoMedia = totalTentativas > 0
         ? Math.round(usuarioLogado.historico.reduce((sum, t) => sum + t.pontos, 0) / totalTentativas)
         : 0;
 
+    // Formatar data de criação da conta
     const dataCriacao = new Date(usuarioLogado.dataCriacao).toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
     });
 
-    // Construir HTML do perfil
+    // PASSO 4: Construir HTML do perfil com informações e estatísticas
     let html = `
         <div class="cartaoPerfil">
             <div class="linhaInfo">
@@ -188,18 +217,20 @@ function mostrarPerfil() {
         </div>
     `;
 
+    // PASSO 5: Colocar HTML no modal e abrir
     conteudo.innerHTML = html;
     abrirModal('modalPerfil');
 }
 
-/**
- * Exibe modal com informações sobre a aplicação
- */
-function mostrarSobre() {
-    console.log('ℹ️ Abrindo sobre...');
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FUNÇÃO 5: Mostrar Sobre                                           */
+/* ─────────────────────────────────────────────────────────────────── */
 
+// Esta função mostra uma janela com informações sobre a aplicação
+function mostrarSobre() {
     const conteudo = document.getElementById('conteudoSobre');
 
+    // Construir HTML com informações sobre o projeto
     const html = `
         <div class="secaoSobre">
             <h3>🎓 Quiz Master</h3>
@@ -237,12 +268,12 @@ function mostrarSobre() {
 
             <div class="criador">
                 <div class="nomeChef">🔹 Firmino da Silva Guerra</div>
-                <div class="cargoChef">Desenvolvedor Full Stack | Programador Principal</div>
+                <div class="cargoChef">Desenvolvedor Web </div>
             </div>
 
             <div class="criador">
                 <div class="nomeChef">🔹 Panzo Rafael Chiló</div>
-                <div class="cargoChef">Desenvolvedor Full Stack | Colaborador</div>
+                <div class="cargoChef">Desenvolvedor Web </div>
             </div>
         </div>
 
@@ -253,52 +284,74 @@ function mostrarSobre() {
         </div>
     `;
 
+    // Colocar HTML no modal e abrir
     conteudo.innerHTML = html;
     abrirModal('modalSobre');
 }
 
-/**
- * Abre um modal
- * @param {string} idModal - ID do modal a abrir
- */
+/* ═══════════════════════════════════════════════════════════════════ */
+/*  FUNÇÕES DE CONTROLE DE MODAIS                                      */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FUNÇÃO 6: Abrir Modal                                             */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Esta função mostra um modal (janela) adicionando a classe "mostrar"
 function abrirModal(idModal) {
-    console.log(`🔓 Abrindo modal: ${idModal}`);
     const modal = document.getElementById(idModal);
     if (modal) {
-        modal.classList.add('mostrar');
+        modal.classList.add('mostrar');  // Deixa visível
     }
 }
 
-/**
- * Fecha um modal
- * @param {string} idModal - ID do modal a fechar
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FUNÇÃO 7: Fechar Modal                                            */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Esta função esconde um modal removendo a classe "mostrar"
 function fecharModal(idModal) {
-    console.log(`🔒 Fechando modal: ${idModal}`);
     const modal = document.getElementById(idModal);
     if (modal) {
-        modal.classList.remove('mostrar');
+        modal.classList.remove('mostrar');  // Fica invisível
     }
 }
 
-/**
- * Fechar modal ao clicar fora do conteúdo
- */
+/* ═══════════════════════════════════════════════════════════════════ */
+/*  EVENT LISTENERS PARA FECHAR MODAIS                                 */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FECHAR MODAL AO CLICAR FORA DO CONTEÚDO                           */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Quando o usuário clica fora do modal (no fundo escuro), ele fecha
 document.addEventListener('click', function (evento) {
+    // Encontra todos os modais que estão abertos
     const modals = document.querySelectorAll('.modal.mostrar');
+
+    // Para cada modal aberto
     modals.forEach(modal => {
+        // Se o clique foi no fundo do modal (não no conteúdo)
         if (evento.target === modal) {
+            // Fechar esse modal
             modal.classList.remove('mostrar');
         }
     });
 });
 
-/**
- * Fechar modal ao pressionar ESC
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  FECHAR MODAL AO PRESSIONAR TECLA ESC                              */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Quando o usuário pressiona a tecla ESC (Escape)
 document.addEventListener('keydown', function (evento) {
+    // Se a tecla pressionada é ESC
     if (evento.key === 'Escape') {
+        // Encontra todos os modais abertos
         const modals = document.querySelectorAll('.modal.mostrar');
+
+        // Para cada modal aberto, fechar
         modals.forEach(modal => {
             modal.classList.remove('mostrar');
         });

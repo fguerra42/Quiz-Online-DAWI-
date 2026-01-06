@@ -1,127 +1,142 @@
 /* ═══════════════════════════════════════════════════════════════════ */
-/* SISTEMA DE QUIZ INTERATIVO - VERSÃO PORTUGUESA                   */
-/* Lógica completa do quiz com gerenciamento de usuários            */
+/*                    SISTEMA DE QUIZ INTERATIVO                        */
+/*                      Versão em Português (PT)                        */
+/*                                                                       */
+/* Este arquivo contém toda a lógica do quiz, desde o carregamento     */
+/* das questões até o cálculo de pontuação e exibição de resultados    */
 /* ═══════════════════════════════════════════════════════════════════ */
 
-/**
- * Estado Global do Quiz
- * Armazena todas as informações sobre o quiz em execução
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  1. VARIÁVEL GLOBAL - Estado do Quiz                                */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Armazena todas as informações sobre o quiz em andamento
 const estadoQuiz = {
-    perguntas: [],                    // Array com as perguntas carregadas
-    perguntaAtual: 0,                 // Índice da pergunta em exibição
-    pontuacao: 0,                     // Pontuação obtida (10 pts por acerto)
-    respostas: [],                    // Array com respostas do usuário
-    tempoInicio: null,                // Timestamp de início
-    tempoDecorrido: 0,                // Tempo em segundos
-    concluido: false,                 // Se quiz foi finalizado
-    usuarioLogado: null               // Dados do usuário autenticado
+    perguntas: [],              // Lista de todas as perguntas
+    perguntaAtual: 0,           // Qual pergunta está sendo mostrada (0 a 9)
+    pontuacao: 0,               // Pontos acumulados (10 pts por acerto)
+    respostas: [],              // Respostas do usuário (null se não respondeu)
+    tempoInicio: null,          // Hora que o quiz começou
+    tempoDecorrido: 0,          // Quantos segundos já passaram
+    concluido: false,           // Quiz terminou?
+    usuarioLogado: null         // Dados do usuário que está fazendo o quiz
 };
 
-/**
- * Reseta o estado do quiz para valores iniciais
- */
-function resetarEstadoQuiz() {
-    estadoQuiz.perguntas = [];
-    estadoQuiz.perguntaAtual = 0;
-    estadoQuiz.pontuacao = 0;
-    estadoQuiz.respostas = [];
-    estadoQuiz.tempoInicio = null;
-    estadoQuiz.tempoDecorrido = 0;
-    estadoQuiz.concluido = false;
-    estadoQuiz.usuarioLogado = null;
+/* ─────────────────────────────────────────────────────────────────── */
+/*  2. FUNÇÃO: Resetar Estado do Quiz                                  */
+/* ─────────────────────────────────────────────────────────────────── */
 
-    // Limpar cronômetro se existir
+// Limpa todas as informações do quiz anterior e deixa tudo zerado
+// Isso é necessário quando o usuário quer fazer outro quiz
+function resetarEstadoQuiz() {
+    estadoQuiz.perguntas = [];          // Sem perguntas
+    estadoQuiz.perguntaAtual = 0;       // Começa na primeira
+    estadoQuiz.pontuacao = 0;           // Zera pontos
+    estadoQuiz.respostas = [];          // Sem respostas anteriores
+    estadoQuiz.tempoInicio = null;      // Sem tempo inicial
+    estadoQuiz.tempoDecorrido = 0;      // Zera tempo decorrido
+    estadoQuiz.concluido = false;       // Quiz não está concluído
+    estadoQuiz.usuarioLogado = null;    // Sem usuário
+
+    // Se havia um cronômetro rodando, parar
     if (window.intervaloCronometro) {
         clearInterval(window.intervaloCronometro);
     }
 }
 
-/**
- * Inicializa o quiz
- * Carrega perguntas do JSON de acordo com a categoria selecionada
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  3. FUNÇÃO: Inicializar Quiz - Carregar Perguntas                  */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Esta função:
+// 1. Reseta o estado do quiz
+// 2. Verifica se o usuário está logado
+// 3. Carrega as perguntas de acordo com a categoria selecionada
+// 4. Mostra a primeira pergunta
+// 5. Inicia o cronômetro
 async function inicializarQuiz() {
     try {
-        // Resetar estado anterior
+        // PASSO 1: Limpar quiz anterior
         resetarEstadoQuiz();
 
-        // Verificar se há usuário logado
+        // PASSO 2: Obter usuário logado (se existir)
         estadoQuiz.usuarioLogado = gerenciador.obterUsuarioLogado();
-
-        // Atualizar interface de acordo com autenticação
         atualizarInterfaceUsuario();
 
-        // Obter categoria selecionada do localStorage
+        // PASSO 3: Obter categoria que o usuário selecionou
+        // Se não houver seleção, usa "tecnologia" como padrão
         const categoriaId = localStorage.getItem('quiz_categoria_selecionada') || 'tecnologia';
         console.log(`📚 Carregando quiz da categoria: ${categoriaId}`);
 
-        // Carregar perguntas do arquivo JSON de categorias
+        // PASSO 4: Carregar o arquivo JSON com todas as perguntas
         const resposta = await fetch('questions-categorias.json');
         const dados = await resposta.json();
 
-        // Procurar a categoria selecionada
+        // PASSO 5: Encontrar a categoria selecionada
         const categoria = dados.categorias.find(c => c.id === categoriaId);
-
         if (!categoria) {
             throw new Error(`Categoria "${categoriaId}" não encontrada`);
         }
 
-        // Pegar perguntas da categoria
+        // PASSO 6: Colocar as perguntas no estado do quiz
         estadoQuiz.perguntas = categoria.perguntas;
         estadoQuiz.respostas = new Array(estadoQuiz.perguntas.length).fill(null);
         estadoQuiz.tempoInicio = Date.now();
 
-        console.log(`✅ ${estadoQuiz.perguntas.length} perguntas carregadas da categoria ${categoria.nome}`);
+        console.log(`✅ ${estadoQuiz.perguntas.length} perguntas carregadas`);
 
-        // Iniciar cronômetro
+        // PASSO 7: Iniciar cronômetro e mostrar primeira pergunta
         iniciarCronometro();
-
-        // Renderizar primeira pergunta
         renderizarPergunta();
+
     } catch (erro) {
         console.error('Erro ao carregar perguntas:', erro);
         exibirMensagemErro('Erro ao carregar o quiz. Tente recarregar a página.');
     }
 }
 
-/**
- * Atualiza a interface para mostrar ou ocultar informações de usuário
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  4. FUNÇÃO: Atualizar Interface do Usuário                          */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Mostra informações do usuário se ele estiver logado
+// Se não estiver, mostra botões para fazer login/registro
 function atualizarInterfaceUsuario() {
     const secaoUsuario = document.getElementById('secaoUsuario');
     const botoesBemVindo = document.getElementById('botoesBemVindo');
     const infoUsuario = document.getElementById('infoUsuario');
 
     if (estadoQuiz.usuarioLogado) {
-        // Usuário logado - mostrar informações
+        // USUÁRIO LOGADO: Mostrar nome, pontos e recorde
         botoesBemVindo.style.display = 'none';
         infoUsuario.style.display = 'flex';
 
-        // Preencher informações do usuário
         document.getElementById('nomeUsuario').textContent = `👤 ${estadoQuiz.usuarioLogado.nome}`;
         document.getElementById('pontosTotais').textContent = estadoQuiz.usuarioLogado.pontuacao;
         document.getElementById('recordeUsuario').textContent = estadoQuiz.usuarioLogado.recorde;
     } else {
-        // Usuário não logado - mostrar botões
+        // USUÁRIO NÃO LOGADO: Mostrar botões de login/registro
         botoesBemVindo.style.display = 'flex';
         infoUsuario.style.display = 'none';
     }
 }
 
-/**
- * Renderiza a pergunta atual na tela
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  5. FUNÇÃO: Renderizar Pergunta - Mostrar na Tela                  */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Mostra a pergunta atual com todas as opções de resposta
+// Também exibe botões "Anterior" e "Próxima"
 function renderizarPergunta() {
     const containerQuiz = document.getElementById('containerQuiz');
     const perguntaAtual = estadoQuiz.perguntas[estadoQuiz.perguntaAtual];
 
     if (!perguntaAtual) return;
 
-    // Atualizar barra de progresso
+    // Atualizar barra de progresso (quanto do quiz já foi feito)
     atualizarBarraProgresso();
 
-    // Criar HTML da pergunta
+    // Criar o HTML com a pergunta e opções
     containerQuiz.innerHTML = `
         <div class="perguntaQuiz">
             <div class="numeroPergunта">Pergunta ${estadoQuiz.perguntaAtual + 1} de ${estadoQuiz.perguntas.length}</div>
@@ -155,18 +170,19 @@ function renderizarPergunta() {
         </div>
     `;
 
-    // Rolar suavemente para a pergunta
+    // Rolar suavemente até a pergunta
     document.querySelector('.perguntaQuiz').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-/**
- * Obtém a classe CSS para uma opção (para feedback visual)
- * @param {number} indice - Índice da opção
- * @returns {string} Classe CSS apropriada
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  6. FUNÇÕES AUXILIARES: Obter Classe e Feedback da Opção           */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Retorna a classe CSS para colorir a opção (verde se correta, vermelho se errada)
 function obterClasseOpcao(indice) {
     const perguntaAtual = estadoQuiz.perguntas[estadoQuiz.perguntaAtual];
 
+    // Se não respondeu ainda, não colore nada
     if (estadoQuiz.respostas[estadoQuiz.perguntaAtual] === null) {
         return '';
     }
@@ -174,20 +190,18 @@ function obterClasseOpcao(indice) {
     const eCorreta = indice === perguntaAtual.respostaCorreta;
     const eSelecionada = indice === estadoQuiz.respostas[estadoQuiz.perguntaAtual];
 
-    if (eCorreta) return 'correta';
-    if (eSelecionada && !eCorreta) return 'incorreta';
-
+    if (eCorreta) 
+        return 'correta';              // Verde ✓
+    if (eSelecionada && !eCorreta)
+        return 'incorreta';  // Vermelho ✗
     return '';
 }
 
-/**
- * Obtém feedback visual (ícone) para uma opção
- * @param {number} indice - Índice da opção
- * @returns {string} Ícone ou string vazia
- */
+// Retorna um ícone de feedback (✓ ou ✗) para a opção
 function obterFeedbackOpcao(indice) {
     const perguntaAtual = estadoQuiz.perguntas[estadoQuiz.perguntaAtual];
 
+    // Se não respondeu ainda, sem feedback
     if (estadoQuiz.respostas[estadoQuiz.perguntaAtual] === null) {
         return '';
     }
@@ -195,54 +209,63 @@ function obterFeedbackOpcao(indice) {
     const eCorreta = indice === perguntaAtual.respostaCorreta;
     const eSelecionada = indice === estadoQuiz.respostas[estadoQuiz.perguntaAtual];
 
-    if (eCorreta) return '✓';
-    if (eSelecionada && !eCorreta) return '✗';
-
+    if (eCorreta)
+        return '✓';                   // Resposta correta
+    if (eSelecionada && !eCorreta)
+        return '✗';  // Resposta errada
     return '';
 }
 
-/**
- * Processa a seleção de uma resposta
- * @param {number} indice - Índice da opção selecionada
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  7. FUNÇÃO: Selecionar Resposta - Processar Escolha do Usuário     */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Quando o usuário clica numa opção:
+// 1. Registra a resposta
+// 2. Se acertou, adiciona 10 pontos
+// 3. Atualiza a tela para mostrar feedback
 function selecionarResposta(indice) {
     const perguntaAtual = estadoQuiz.perguntas[estadoQuiz.perguntaAtual];
 
+    // Registrar qual opção o usuário escolheu
     estadoQuiz.respostas[estadoQuiz.perguntaAtual] = indice;
 
-    // Verificar se acertou (10 pontos por acerto)
+    // Verificar se acertou e adicionar pontos (10 por acerto)
     if (indice === perguntaAtual.respostaCorreta) {
         estadoQuiz.pontuacao += 10;
     }
 
-    // Atualizar exibição de pontuação
+    // Atualizar a exibição de pontos na tela
     atualizarExibicaoPontuacao();
 
-    // Re-renderizar para mostrar feedback
+    // Re-desenhar a pergunta para mostrar se acertou/errou (com cores)
     renderizarPergunta();
 }
 
-/**
- * Vai para a próxima pergunta
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  8. FUNÇÕES: Navegação entre Perguntas                             */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Vai para a próxima pergunta
+// Se for a última pergunta, finaliza o quiz
 function proximaPergunta() {
+    // Verificar se respondeu a pergunta atual
     if (estadoQuiz.respostas[estadoQuiz.perguntaAtual] === null) {
         alert('Por favor, selecione uma resposta!');
         return;
     }
 
+    // Se não for a última pergunta, avançar
     if (estadoQuiz.perguntaAtual < estadoQuiz.perguntas.length - 1) {
         estadoQuiz.perguntaAtual++;
         renderizarPergunta();
     } else {
-        // Quiz finalizado
+        // Última pergunta respondida: finalizar quiz
         finalizarQuiz();
     }
 }
 
-/**
- * Volta para a pergunta anterior
- */
+// Volta para a pergunta anterior
 function perguntaAnterior() {
     if (estadoQuiz.perguntaAtual > 0) {
         estadoQuiz.perguntaAtual--;
@@ -250,58 +273,61 @@ function perguntaAnterior() {
     }
 }
 
-/**
- * Finaliza o quiz e mostra resultados
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  9. FUNÇÃO: Finalizar Quiz - Salvar Pontos e Mostrar Resultados    */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Finaliza o quiz e mostra os resultados
 function finalizarQuiz() {
     estadoQuiz.concluido = true;
     document.getElementById('containerQuiz').style.display = 'none';
 
-    // Salvar pontuação se houver usuário logado
+    // Se há usuário logado, salvar os pontos dele
     if (estadoQuiz.usuarioLogado) {
         gerenciador.atualizarPontuacao(estadoQuiz.pontuacao);
 
-        // Atualizar o estado local com dados atualizados do localStorage
+        // Atualizar dados do usuário com informações atualizadas
         estadoQuiz.usuarioLogado = gerenciador.obterUsuarioLogado();
 
-        // Atualizar interface com novos pontos
+        // Atualizar exibição de pontos e recorde
         if (estadoQuiz.usuarioLogado) {
             document.getElementById('pontosTotais').textContent = estadoQuiz.usuarioLogado.pontuacao;
             document.getElementById('recordeUsuario').textContent = estadoQuiz.usuarioLogado.recorde;
         }
     }
 
+    // Mostrar tela de resultados
     exibirResultados();
 }
 
-/**
- * Exibe a tela de resultados finais
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  10. FUNÇÃO: Exibir Resultados - Mostrar Tela Final                */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Mostra a tela com os resultados do quiz
 function exibirResultados() {
     const telaResultados = document.getElementById('telaResultados');
+
+    // Calcular percentual de acertos
     const percentual = Math.round((estadoQuiz.pontuacao / (estadoQuiz.perguntas.length * 10)) * 100);
 
-    // Atualizar dados dos resultados
+    // Preencher a tela com os dados
     document.getElementById('percentualPontuacao').textContent = percentual + '%';
     document.getElementById('respostasCorretas').textContent = Math.round(estadoQuiz.pontuacao / 10);
     document.getElementById('totalPerguntas').textContent = estadoQuiz.perguntas.length;
 
-    // Mensagem de desempenho personalizada
+    // Mensagem motivadora baseada no desempenho
     const mensagem = obterMensagemDesempenho(percentual);
     document.getElementById('mensagemDesempenho').textContent = mensagem;
 
-    // Mostrar pontos ganhos
+    // Mostrar pontos ganhos neste quiz
     document.getElementById('pontosGanhos').innerHTML = `Pontos ganhos: <strong>${estadoQuiz.pontuacao}</strong>`;
 
-    // Mostrar tela de resultados
+    // Mostrar a tela de resultados
     telaResultados.classList.add('mostrar');
 }
 
-/**
- * Obtém mensagem personalizada com base no desempenho
- * @param {number} percentual - Percentual de acertos
- * @returns {string} Mensagem motivadora
- */
+// Retorna mensagem motivadora baseada no desempenho
 function obterMensagemDesempenho(percentual) {
     if (percentual === 100) {
         return '🌟 Excelente! Você é um expert!';
@@ -316,11 +342,13 @@ function obterMensagemDesempenho(percentual) {
     }
 }
 
-/**
- * Reinicia o quiz
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  11. FUNÇÕES: Reiniciar Quiz e Revisar Respostas                   */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Zera o quiz e recomeça do início
 function reiniciarQuiz() {
-    // Resetar estado
+    // Resetar contadores
     estadoQuiz.perguntaAtual = 0;
     estadoQuiz.pontuacao = 0;
     estadoQuiz.respostas = new Array(estadoQuiz.perguntas.length).fill(null);
@@ -328,23 +356,23 @@ function reiniciarQuiz() {
     estadoQuiz.tempoDecorrido = 0;
     estadoQuiz.concluido = false;
 
-    // Limpar telas
+    // Mostrar quiz, esconder resultados e revisão
     document.getElementById('containerQuiz').style.display = 'block';
     document.getElementById('telaResultados').classList.remove('mostrar');
     document.getElementById('telaRevisao').classList.remove('mostrar');
 
-    // Renderizar primeira pergunta
+    // Mostrar primeira pergunta
     renderizarPergunta();
     atualizarExibicaoPontuacao();
 }
 
-/**
- * Exibe revisão de todas as respostas
- */
+// Mostra uma revisão de todas as respostas do usuário
 function revisarRespostas() {
     const conteudoRevisao = document.getElementById('conteudoRevisao');
 
     let htmlRevisao = '';
+
+    // Para cada pergunta, mostrar a resposta do usuário e a correta (se errou)
     estadoQuiz.perguntas.forEach((pergunta, indice) => {
         const respostaUsuario = estadoQuiz.respostas[indice];
         const respostaCorreta = pergunta.respostaCorreta;
@@ -368,21 +396,23 @@ function revisarRespostas() {
     });
 
     conteudoRevisao.innerHTML = htmlRevisao;
+
+    // Esconder resultados, mostrar revisão
     document.getElementById('telaResultados').classList.remove('mostrar');
     document.getElementById('telaRevisao').classList.add('mostrar');
 }
 
-/**
- * Volta para a tela de resultados
- */
+// Volta da revisão para os resultados
 function voltarResultados() {
     document.getElementById('telaRevisao').classList.remove('mostrar');
     document.getElementById('telaResultados').classList.add('mostrar');
 }
 
-/**
- * Atualiza a barra de progresso
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  12. FUNÇÕES AUXILIARES: Atualizar Interface                       */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Atualiza a barra de progresso (a barrinha que mostra quanto falta)
 function atualizarBarraProgresso() {
     const progresso = ((estadoQuiz.perguntaAtual + 1) / estadoQuiz.perguntas.length) * 100;
     document.getElementById('preenchimentoProgresso').style.width = progresso + '%';
@@ -390,24 +420,21 @@ function atualizarBarraProgresso() {
         `Pergunta ${estadoQuiz.perguntaAtual + 1} de ${estadoQuiz.perguntas.length}`;
 }
 
-/**
- * Atualiza a exibição de pontuação
- */
+// Atualiza a exibição de pontos na tela
 function atualizarExibicaoPontuacao() {
     const acertos = Math.round(estadoQuiz.pontuacao / 10);
     document.getElementById('pontuacaoAtual').textContent = estadoQuiz.pontuacao;
     document.getElementById('totalPontuacao').textContent = estadoQuiz.perguntas.length * 10;
 }
 
-/**
- * Inicia o cronômetro
- */
+// Inicia o cronômetro (conta quanto tempo o usuário leva)
 function iniciarCronometro() {
     setInterval(() => {
         if (!estadoQuiz.concluido) {
             const decorrido = Math.floor((Date.now() - estadoQuiz.tempoInicio) / 1000);
             estadoQuiz.tempoDecorrido = decorrido;
 
+            // Formatar tempo: "1m 30s" ou "45s"
             let exibicao;
             if (decorrido < 60) {
                 exibicao = decorrido + 's';
@@ -422,21 +449,19 @@ function iniciarCronometro() {
     }, 100);
 }
 
-/**
- * Função utilitária para escapar HTML (segurança contra XSS)
- * @param {string} texto - Texto a escapar
- * @returns {string} Texto escapado
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  13. FUNÇÕES UTILITÁRIAS: Escapar HTML e Exibir Erros              */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Converte caracteres especiais em HTML seguro
+// Exemplo: "<script>" vira "&lt;script&gt;" (para evitar XSS)
 function escaparHTML(texto) {
     const div = document.createElement('div');
     div.textContent = texto;
     return div.innerHTML;
 }
 
-/**
- * Exibe mensagem de erro
- * @param {string} mensagem - Mensagem a exibir
- */
+// Mostra uma mensagem de erro na tela
 function exibirMensagemErro(mensagem) {
     document.getElementById('containerQuiz').innerHTML = `
         <div style="text-align: center; padding: 40px; color: #e74c3c;">
@@ -453,13 +478,15 @@ function exibirMensagemErro(mensagem) {
 // DELETADO: Função fazerLogout foi movida para autenticacao.js
 // A função correta está em autenticacao.js linha 361
 
-/**
- * Inicializar quiz quando a página carregar
- */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  14. EVENT LISTENER: Inicializar Quiz quando a Página Carregar     */
+/* ─────────────────────────────────────────────────────────────────── */
+
+// Quando a página HTML termina de carregar, executar isso:
 document.addEventListener('DOMContentLoaded', () => {
-    // Limpar flag de login se existir
+    // Limpar qualquer flag de login anterior
     localStorage.removeItem('vemDoLogin');
 
-    // Inicializar quiz
+    // Carregar perguntas e mostrar a primeira
     inicializarQuiz();
 });

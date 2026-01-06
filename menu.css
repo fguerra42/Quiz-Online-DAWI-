@@ -1,220 +1,264 @@
 /* ═══════════════════════════════════════════════════════════════════ */
-/* Estilos da Página de Menu Principal                               */
+/*                      MENU CSS - ESTILO                              */
+/*                                                                       */
+/* Este arquivo define o estilo visual do menu principal do quiz       */
+/* com cores, layout responsivo e interações de usuário                */
 /* ═══════════════════════════════════════════════════════════════════ */
 
+/* ─────────────────────────────────────────────────────────────────── */
+/*  VARIÁVEIS DE COR E ESTILO GLOBAL                                  */
+/* ─────────────────────────────────────────────────────────────────── */
+
 :root {
+    /* Cores principais - Gradiente roxo */
     --cor-primaria: #667eea;
     --cor-secundaria: #764ba2;
     --cor-sucesso: #51cf66;
-    --cor-aviso: #ffd43b;
     --cor-fundo: #f8f9fa;
     --cor-texto: #333;
     --cor-texto-claro: #666;
     --cor-borda: #e0e0e0;
+
+    /* Efeitos visuais */
     --sombra: 0 10px 30px rgba(0, 0, 0, 0.1);
     --transicao: all 0.3s ease;
 }
 
+/* ─────────────────────────────────────────────────────────────────── */
+/*  RESET E ESTILOS BASE                                              */
+/* ─────────────────────────────────────────────────────────────────── */
+
+/* Remove margens e padding padrão de todos os elementos */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Corpo da página com fundo gradiente */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--cor-fundo);
-    color: var(--cor-texto);
-    line-height: 1.6;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    color: #333;
 }
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/* CABEÇALHO DO MENU                                                  */
-/* ═══════════════════════════════════════════════════════════════════ */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  CABEÇALHO DO MENU (HEADER)                                        */
+/* ─────────────────────────────────────────────────────────────────── */
 
+/* Container do cabeçalho com gradiente */
 .cabecalhoMenu {
-    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
-    color: white;
-    padding: 15px 0;
-    box-shadow: var(--sombra);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 12px 0;
+    overflow: hidden;
 }
 
+/* Container flex para logo e informações do usuário */
 .containerCabecalho {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logoMenu h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.infoUsuarioMenu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.dadosUsuario {
+    padding: 0 15px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    text-align: right;
+    gap: 10px;
 }
 
-.nomeUsuario {
-    font-size: 16px;
-    font-weight: 600;
+/* Logo do menu - título h1 */
+.logoMenu h1 {
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
 }
 
-.pontuacaoUsuario {
+/* Seção com informações e botão do usuário */
+.infoUsuarioMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Dados do usuário logado - nome e pontuação */
+.dadosUsuario {
+    text-align: center;
+    color: #fff;
     font-size: 13px;
-    opacity: 0.9;
 }
 
+/* Botão de saída/logout */
 .botaySair {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 2px solid white;
-    padding: 8px 16px;
-    border-radius: 25px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 20px;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
     transition: var(--transicao);
+    font-weight: bold;
+    font-size: 13px;
 }
 
+/* Efeito hover no botão sair */
 .botaySair:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
 }
 
-.botaySair:active {
-    transform: translateY(0);
-}
+/* ─────────────────────────────────────────────────────────────────── */
+/*  CONTEÚDO PRINCIPAL DO MENU                                        */
+/* ─────────────────────────────────────────────────────────────────── */
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/* CONTEÚDO PRINCIPAL                                                 */
-/* ═══════════════════════════════════════════════════════════════════ */
-
+/* Container principal com padding */
 .mainMenu {
-    min-height: calc(100vh - 140px);
-    padding: 40px 20px;
+    padding: 20px 15px;
 }
 
+/* Container do menu - agrupa o conteúdo */
 .containerMenu {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
-/* Seção de Boas-vindas */
+/* Seção de boas-vindas */
 .secaoBemVindo {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
+/* Título da seção de boas-vindas */
 .secaoBemVindo h2 {
-    font-size: 32px;
-    color: var(--cor-primaria);
-    margin-bottom: 10px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
+/* Subtítulo/descrição */
 .secaoBemVindo p {
-    font-size: 16px;
-    color: var(--cor-texto-claro);
+    font-size: 14px;
+    color: #eee;
+    line-height: 1.4;
 }
 
-/* Grid de Opções */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  GRID E CARDS DE OPÇÕES                                            */
+/* ─────────────────────────────────────────────────────────────────── */
+
+/* Grid com 1 coluna por padrão (mobile) */
 .gridOpcoes {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    grid-template-columns: 1fr;
+    gap: 15px;
 }
 
+/* Card individual das opções */
 .cardOpcao {
-    background: white;
+    background: #fff;
+    padding: 18px;
     border-radius: 15px;
-    padding: 30px;
     text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    transition: var(--transicao);
+}
+
+/* Efeito hover - card sobe e sombra aumenta */
+.cardOpcao:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Ícone dentro do card */
+.iconCard {
+    font-size: 36px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Título do card */
+.cardOpcao h3 {
+    color: #667eea;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Descrição do card */
+.cardOpcao p {
+    font-size: 13px;
+    margin: 10px 0;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Botão dentro do card */
+.botaoCard {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border-radius: 20px;
+    font-size: 12px;
+    border: none;
     cursor: pointer;
     transition: var(--transicao);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    border: 2px solid transparent;
+    font-weight: bold;
 }
 
-.cardOpcao:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--sombra);
-    border-color: var(--cor-primaria);
+/* Efeito hover no botão */
+.botaoCard:hover {
+    transform: scale(1.08);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
-.iconCard {
-    font-size: 50px;
-    margin-bottom: 15px;
+/* ─────────────────────────────────────────────────────────────────── */
+/*  RODAPÉ (FOOTER)                                                   */
+/* ─────────────────────────────────────────────────────────────────── */
+
+/* Container do rodapé com fundo escuro */
+.rodapeMenu {
+    background: #222;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
-.cardOpcao h3 {
-    font-size: 20px;
-    color: var(--cor-primaria);
-    margin-bottom: 10px;
-}
-
-.cardOpcao p {
-    font-size: 14px;
-    color: var(--cor-texto-claro);
-    margin-bottom: 20px;
+/* Texto do rodapé */
+.rodapeMenu p {
+    font-size: 11px;
     line-height: 1.5;
 }
 
-.botaoCard {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 13px;
-    font-weight: 600;
-    transition: var(--transicao);
-}
+/* ─────────────────────────────────────────────────────────────────── */
+/*  MODAIS (JANELAS POP-UP)                                           */
+/* ─────────────────────────────────────────────────────────────────── */
 
-.cardOpcao:hover .botaoCard {
-    transform: translateX(5px);
-}
-
-/* ═══════════════════════════════════════════════════════════════════ */
-/* MODALS                                                             */
-/* ═══════════════════════════════════════════════════════════════════ */
-
+/* Fundo escuro do modal - cobre toda a tela */
 .modal {
     display: none;
     position: fixed;
-    z-index: 200;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     animation: fadeIn 0.3s ease;
 }
 
+/* Quando o modal tem a classe "mostrar", ele fica visível */
 .modal.mostrar {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* Animação de entrada do modal */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -225,21 +269,25 @@ body {
     }
 }
 
+/* Conteúdo do modal - caixa branca central */
 .conteudoModal {
-    background-color: white;
-    padding: 40px;
+    background-color: #fff;
+    padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
     max-width: 600px;
     max-height: 80vh;
     overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     position: relative;
-    animation: slideUp 0.3s ease;
+    animation: slideIn 0.3s ease;
+    margin: auto;
 }
 
-@keyframes slideUp {
+/* Animação de entrada do conteúdo */
+@keyframes slideIn {
     from {
-        transform: translateY(50px);
+        transform: translateY(-50px);
         opacity: 0;
     }
 
@@ -249,43 +297,52 @@ body {
     }
 }
 
+/* Título do modal */
 .conteudoModal h2 {
-    color: var(--cor-primaria);
+    color: #667eea;
     margin-bottom: 20px;
     font-size: 24px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
 }
 
+/* Botão fechar modal (X) */
 .botaoFecharModal {
     position: absolute;
-    top: 15px;
     right: 15px;
-    background: none;
+    top: 15px;
+    background: #ff6b6b;
+    color: #fff;
     border: none;
-    font-size: 24px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
     cursor: pointer;
-    color: #999;
     transition: var(--transicao);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Efeito hover no botão fechar */
 .botaoFecharModal:hover {
-    color: var(--cor-primaria);
-    transform: rotate(90deg);
+    background: #ff5252;
+    transform: scale(1.1);
 }
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/* CONTEÚDO - HISTÓRICO                                               */
-/* ═══════════════════════════════════════════════════════════════════ */
-
+/* Conteúdo do histórico */
 .conteudoHistorico {
-    margin-top: 20px;
+    color: #333;
 }
 
+/* Item individual do histórico */
 .itemHistorico {
-    background: var(--cor-fundo);
     padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    border-left: 4px solid var(--cor-primaria);
+    margin: 12px 0;
+    background: #f0f0f0;
+    border-left: 4px solid #667eea;
+    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -293,44 +350,43 @@ body {
 
 .dataHistorico {
     font-size: 12px;
-    color: var(--cor-texto-claro);
+    color: #999;
+    margin-top: 5px;
 }
 
 .pontoHistorico {
-    font-size: 18px;
     font-weight: bold;
-    color: var(--cor-sucesso);
-    background: white;
-    padding: 5px 15px;
-    border-radius: 20px;
+    color: #51cf66;
+    font-size: 16px;
 }
 
 .historicoVazio {
     text-align: center;
-    padding: 30px;
-    color: var(--cor-texto-claro);
+    padding: 40px 20px;
+    color: #999;
+    font-size: 16px;
 }
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/* CONTEÚDO - PERFIL                                                  */
-/* ═══════════════════════════════════════════════════════════════════ */
-
+/* Conteúdo do perfil */
 .conteudoPerfil {
-    margin-top: 20px;
+    color: #333;
 }
 
+/* Cartão com dados do perfil */
 .cartaoPerfil {
-    background: var(--cor-fundo);
+    background: #f8f9fa;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
 }
 
+/* Linha de informação no perfil */
 .linhaInfo {
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--cor-borda);
+    align-items: center;
 }
 
 .linhaInfo:last-child {
@@ -338,309 +394,184 @@ body {
 }
 
 .labelInfo {
-    font-weight: 600;
-    color: var(--cor-primaria);
+    font-weight: bold;
+    color: #667eea;
 }
 
 .valorInfo {
-    color: var(--cor-texto);
+    color: #555;
 }
 
+/* Seção de estatísticas */
 .estatisticas {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 15px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
+/* Cartão individual de estatística */
 .cartaoEstat {
-    background: white;
-    padding: 15px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 20px;
     border-radius: 10px;
     text-align: center;
-    border: 2px solid var(--cor-borda);
 }
 
 .cartaoEstat h4 {
-    color: var(--cor-texto-claro);
-    font-size: 12px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
+    font-size: 13px;
+    margin-bottom: 10px;
+    opacity: 0.9;
 }
 
 .cartaoEstat .numero {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
-    color: var(--cor-primaria);
 }
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/* CONTEÚDO - SOBRE                                                   */
-/* ═══════════════════════════════════════════════════════════════════ */
-
+/* Conteúdo do sobre */
 .conteudoSobre {
-    margin-top: 20px;
+    color: #333;
+    line-height: 1.6;
 }
 
+/* Seção dentro do "sobre" */
 .secaoSobre {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
 }
 
 .secaoSobre h3 {
-    color: var(--cor-primaria);
+    color: #667eea;
     margin-bottom: 12px;
     font-size: 18px;
 }
 
 .secaoSobre p {
-    color: var(--cor-texto-claro);
-    line-height: 1.8;
-    margin-bottom: 10px;
+    margin: 8px 0;
+    font-size: 14px;
+    color: #555;
 }
 
+.secaoSobre ul {
+    color: #555;
+    font-size: 14px;
+}
+
+.secaoSobre li {
+    margin-bottom: 8px;
+}
+
+/* Seção de criadores */
 .criadores {
-    background: var(--cor-fundo);
+    background: #f8f9fa;
     padding: 20px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .criadores h4 {
-    color: var(--cor-primaria);
+    color: #667eea;
     margin-bottom: 15px;
 }
 
 .criador {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
+    background: #fff;
+    padding: 12px;
     margin-bottom: 10px;
-    border-left: 4px solid var(--cor-secundaria);
-}
-
-.criador:last-child {
-    margin-bottom: 0;
+    border-radius: 8px;
+    border-left: 3px solid #667eea;
 }
 
 .nomeChef {
-    font-weight: 600;
-    color: var(--cor-primaria);
-    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
 }
 
 .cargoChef {
     font-size: 13px;
-    color: var(--cor-texto-claro);
+    color: #999;
+    margin-top: 3px;
 }
 
+/* Seção de versão */
 .versao {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 25px;
     padding-top: 20px;
-    border-top: 2px solid var(--cor-borda);
-    color: var(--cor-texto-claro);
-    font-size: 12px;
-}
-
-/* ═══════════════════════════════════════════════════════════════════ */
-/* RODAPÉ                                                             */
-/* ═══════════════════════════════════════════════════════════════════ */
-
-.rodapeMenu {
-    background-color: var(--cor-texto);
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: auto;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-
-.rodapeMenu p {
-    margin: 0;
+    border-top: 2px solid #ddd;
+    color: #667eea;
     font-size: 13px;
-    line-height: 1.4;
-    word-break: break-word;
 }
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/* RESPONSIVIDADE                                                     */
-/* ═══════════════════════════════════════════════════════════════════ */
+/* ─────────────────────────────────────────────────────────────────── */
+/*  RESPONSIVIDADE - EXTRA SMALL DEVICES (320px) - Telas Mínimas       */
+/* ─────────────────────────────────────────────────────────────────── */
 
-@media (max-width: 768px) {
+@media (min-width: 320px) {
+
+    /* Ajustar padding em telas muito pequenas */
     .containerCabecalho {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .infoUsuarioMenu {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .secaoBemVindo h2 {
-        font-size: 24px;
-    }
-
-    .gridOpcoes {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        max-width: 500px;
-    }
-
-    .conteudoModal {
-        max-width: 90%;
-        padding: 25px;
-    }
-
-    .estatisticas {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .cabecalhoMenu {
-        padding: 10px 0;
+        padding: 0 8px;
+        gap: 6px;
     }
 
     .logoMenu h1 {
-        font-size: 18px;
-    }
-
-    .nomeUsuario {
         font-size: 14px;
-    }
-
-    .pontuacaoUsuario {
-        font-size: 11px;
-    }
-
-    .botaySair {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-
-    .secaoBemVindo h2 {
-        font-size: 20px;
-    }
-
-    .gridOpcoes {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        max-width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .cardOpcao {
-        padding: 18px;
-    }
-
-    .iconCard {
-        font-size: 40px;
-    }
-
-    .cardOpcao h3 {
-        font-size: 16px;
-        margin-bottom: 8px;
-    }
-
-    .cardOpcao p {
-        font-size: 12px;
-        margin-bottom: 12px;
-    }
-
-    .botaoCard {
-        font-size: 11px;
-        padding: 8px 14px;
-    }
-
-    .mainMenu {
-        min-height: calc(100vh - 120px);
-        padding: 20px 15px;
-    }
-
-    .conteudoModal {
-        max-width: 95%;
-        padding: 20px;
-        max-height: 90vh;
-    }
-
-    .rodapeMenu {
-        padding: 12px 15px;
-        font-size: 11px;
-    }
-
-    .rodapeMenu p {
-        font-size: 10px;
-        line-height: 1.3;
-    }
-}
-
-/* ═══════════════════════════════════════════════════════════════════ */
-/* RESPONSIVIDADE - CELULAR PEQUENO (360px)                           */
-/* ═══════════════════════════════════════════════════════════════════ */
-
-@media (max-width: 360px) {
-    .cabecalhoMenu {
-        padding: 8px 0;
-    }
-
-    .containerCabecalho {
-        padding: 0 10px;
-        gap: 10px;
-    }
-
-    .logoMenu h1 {
-        font-size: 16px;
-    }
-
-    .infoUsuarioMenu {
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .dadosUsuario {
-        width: 100%;
-        align-items: center;
+        font-size: 11px;
+        line-height: 1.2;
     }
 
     .nomeUsuario {
-        font-size: 12px;
+        display: block;
     }
 
     .pontuacaoUsuario {
+        display: block;
         font-size: 10px;
     }
 
     .botaySair {
-        padding: 5px 10px;
         font-size: 11px;
-        width: 100%;
+        padding: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .mainMenu {
+        padding: 12px 8px;
     }
 
     .secaoBemVindo h2 {
-        font-size: 18px;
+        font-size: 16px;
+        margin-bottom: 6px;
     }
 
     .secaoBemVindo p {
-        font-size: 13px;
+        font-size: 12px;
+        margin-bottom: 15px;
     }
 
     .gridOpcoes {
-        grid-template-columns: 1fr;
         gap: 12px;
-        max-width: 100%;
-        margin-bottom: 20px;
-        padding: 0;
     }
 
     .cardOpcao {
-        padding: 15px;
+        padding: 12px;
+        border-radius: 12px;
     }
 
     .iconCard {
-        font-size: 32px;
+        font-size: 28px;
         margin-bottom: 8px;
     }
 
@@ -651,38 +582,513 @@ body {
 
     .cardOpcao p {
         font-size: 11px;
-        margin-bottom: 10px;
+        margin: 6px 0;
     }
 
     .botaoCard {
         font-size: 10px;
-        padding: 7px 12px;
-    }
-
-    .mainMenu {
-        min-height: calc(100vh - 100px);
-        padding: 15px 10px;
-    }
-
-    .conteudoModal {
-        max-width: 95%;
-        padding: 15px;
-        max-height: 85vh;
-    }
-
-    .fecharModal {
-        width: 30px;
-        height: 30px;
+        padding: 6px 12px;
+        white-space: nowrap;
     }
 
     .rodapeMenu {
-        padding: 8px 10px;
-        font-size: 9px;
+        padding: 10px 8px;
+        margin-top: 20px;
     }
 
     .rodapeMenu p {
-        font-size: 8px;
-        line-height: 1.2;
-        word-break: break-word;
+        font-size: 9px;
+        line-height: 1.3;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Modal em tela extra pequena */
+    .conteudoModal {
+        width: 98%;
+        max-width: none;
+        margin: 30% auto;
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .conteudoModal h2 {
+        font-size: 16px;
+        margin-bottom: 12px;
+        word-wrap: break-word;
+    }
+
+    .botaoFecharModal {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        right: 10px;
+        top: 10px;
+    }
+
+    .itemHistorico {
+        padding: 10px;
+        margin: 8px 0;
+        font-size: 12px;
+    }
+
+    .estatisticas {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .cartaoEstat {
+        padding: 15px;
+    }
+
+    .cartaoEstat h4 {
+        font-size: 11px;
+    }
+
+    .cartaoEstat .numero {
+        font-size: 24px;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  RESPONSIVIDADE - SMALL DEVICES (340px) - Intermediário             */
+/* ─────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 340px) {
+
+    /* Melhorar um pouco mais em 340px */
+    .containerCabecalho {
+        padding: 0 10px;
+        gap: 7px;
+    }
+
+    .logoMenu h1 {
+        font-size: 15px;
+        white-space: nowrap;
+    }
+
+    .dadosUsuario {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    .mainMenu {
+        padding: 14px 10px;
+    }
+
+    .secaoBemVindo h2 {
+        font-size: 18px;
+    }
+
+    .gridOpcoes {
+        gap: 13px;
+    }
+
+    .cardOpcao {
+        padding: 13px;
+    }
+
+    .iconCard {
+        font-size: 32px;
+    }
+
+    .cardOpcao h3 {
+        font-size: 15px;
+    }
+
+    .cardOpcao p {
+        font-size: 12px;
+    }
+
+    .botaoCard {
+        font-size: 11px;
+        padding: 6px 14px;
+    }
+
+    .rodapeMenu {
+        padding: 12px 10px;
+    }
+
+    .rodapeMenu p {
+        font-size: 10px;
+    }
+
+    .conteudoModal {
+        width: 96%;
+        padding: 15px;
+    }
+
+    .conteudoModal h2 {
+        font-size: 18px;
+    }
+
+    .estatisticas {
+        grid-template-columns: 1fr;
+    }
+
+    .cartaoEstat .numero {
+        font-size: 28px;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  RESPONSIVIDADE - MICRO DEVICES (360px) - iPhone SE, Nexus 5       */
+/* ─────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 360px) {
+
+    /* Aumentar um pouco o padding */
+    .containerCabecalho {
+        padding: 0 12px;
+        gap: 8px;
+    }
+
+    .logoMenu h1 {
+        font-size: 17px;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .dadosUsuario {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .nomeUsuario {
+        display: inline;
+    }
+
+    .pontuacaoUsuario {
+        display: block;
+        font-size: 11px;
+        margin-top: 2px;
+    }
+
+    .botaySair {
+        font-size: 12px;
+        padding: 7px;
+    }
+
+    .mainMenu {
+        padding: 16px 12px;
+    }
+
+    .secaoBemVindo h2 {
+        font-size: 20px;
+    }
+
+    .secaoBemVindo p {
+        font-size: 13px;
+    }
+
+    .gridOpcoes {
+        gap: 14px;
+    }
+
+    .cardOpcao {
+        padding: 16px;
+    }
+
+    .iconCard {
+        font-size: 34px;
+    }
+
+    .cardOpcao h3 {
+        font-size: 16px;
+    }
+
+    .cardOpcao p {
+        font-size: 13px;
+    }
+
+    .botaoCard {
+        font-size: 12px;
+        padding: 7px 15px;
+    }
+
+    .rodapeMenu {
+        padding: 12px;
+        margin-top: 25px;
+    }
+
+    .rodapeMenu p {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    /* Modal responsivo em telas pequenas */
+    .conteudoModal {
+        width: 95%;
+        margin: auto;
+        padding: 18px;
+    }
+
+    .conteudoModal h2 {
+        font-size: 19px;
+    }
+
+    .botaoFecharModal {
+        width: 32px;
+        height: 32px;
+    }
+
+    .itemHistorico {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    .estatisticas {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .cartaoEstat {
+        padding: 16px;
+    }
+
+    .cartaoEstat h4 {
+        font-size: 12px;
+    }
+
+    .cartaoEstat .numero {
+        font-size: 26px;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  RESPONSIVIDADE - SMALL PHONES (480px)                             */
+/* ─────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 480px) {
+
+    /* Melhorar espaçamento no cabeçalho */
+    .containerCabecalho {
+        padding: 0 20px;
+    }
+
+    .logoMenu h1 {
+        font-size: 20px;
+    }
+
+    .mainMenu {
+        padding: 25px 20px;
+    }
+
+    .secaoBemVindo h2 {
+        font-size: 22px;
+    }
+
+    .secaoBemVindo p {
+        font-size: 15px;
+    }
+
+    .gridOpcoes {
+        gap: 18px;
+    }
+
+    .cardOpcao {
+        padding: 20px;
+    }
+
+    .iconCard {
+        font-size: 40px;
+    }
+
+    .cardOpcao h3 {
+        font-size: 17px;
+    }
+
+    .cardOpcao p {
+        font-size: 14px;
+    }
+
+    .botaoCard {
+        font-size: 13px;
+        padding: 9px 18px;
+    }
+
+    .rodapeMenu {
+        padding: 18px;
+    }
+
+    .rodapeMenu p {
+        font-size: 12px;
+    }
+
+    /* Modal responsivo em telas médias */
+    .conteudoModal {
+        width: 90%;
+        max-width: 700px;
+        padding: 25px;
+    }
+
+    .conteudoModal h2 {
+        font-size: 22px;
+    }
+
+    .estatisticas {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  RESPONSIVIDADE - TABLET (600px)                                   */
+/* ─────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 600px) {
+
+    /* Cabeçalho em linha horizontal */
+    .containerCabecalho {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 25px;
+    }
+
+    /* Informações do usuário ao lado do logo */
+    .infoUsuarioMenu {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+
+    /* Logo à esquerda */
+    .logoMenu h1 {
+        font-size: 22px;
+        text-align: left;
+    }
+
+    /* Grid com 2 colunas em tablet */
+    .gridOpcoes {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 700px;
+        margin: auto;
+        gap: 20px;
+    }
+
+    .mainMenu {
+        padding: 30px 25px;
+    }
+
+    .cardOpcao {
+        padding: 25px;
+    }
+
+    .iconCard {
+        font-size: 44px;
+    }
+
+    .cardOpcao h3 {
+        font-size: 18px;
+    }
+
+    .cardOpcao p {
+        font-size: 14px;
+    }
+
+    /* Modal maior em tablet */
+    .conteudoModal {
+        width: 80%;
+        max-width: 750px;
+        padding: 30px;
+    }
+
+    .conteudoModal h2 {
+        font-size: 24px;
+    }
+
+    .estatisticas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  RESPONSIVIDADE - DESKTOP (1024px)                                 */
+/* ─────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 1024px) {
+
+    /* Mais espaço no conteúdo principal */
+    .mainMenu {
+        padding: 40px;
+    }
+
+    /* Título maior em desktop */
+    .secaoBemVindo h2 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .secaoBemVindo p {
+        font-size: 16px;
+    }
+
+    /* Grid maior em desktop */
+    .gridOpcoes {
+        max-width: 900px;
+        gap: 25px;
+    }
+
+    /* Cards maiores */
+    .cardOpcao {
+        padding: 30px;
+    }
+
+    .iconCard {
+        font-size: 48px;
+    }
+
+    .cardOpcao h3 {
+        font-size: 20px;
+    }
+
+    .cardOpcao p {
+        font-size: 15px;
+    }
+
+    .botaoCard {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    /* Cabeçalho com mais espaço */
+    .containerCabecalho {
+        padding: 0 40px;
+    }
+
+    .logoMenu h1 {
+        font-size: 26px;
+    }
+
+    .rodapeMenu {
+        padding: 20px 40px;
+        margin-top: 40px;
+    }
+
+    .rodapeMenu p {
+        font-size: 13px;
+    }
+
+    /* Modal grande em desktop */
+    .conteudoModal {
+        width: 70%;
+        max-width: 800px;
+        padding: 40px;
+    }
+
+    .conteudoModal h2 {
+        font-size: 28px;
+    }
+
+    .estatisticas {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .cartaoEstat {
+        padding: 25px;
+    }
+
+    .cartaoEstat .numero {
+        font-size: 36px;
     }
 }
