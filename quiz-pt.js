@@ -1,11 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════════ */
-/*                    SISTEMA DE QUIZ INTERATIVO                        */
-/*                      Versão em Português (PT)                        */
-/*                                                                       */
-/* Este arquivo contém toda a lógica do quiz, desde o carregamento     */
-/* das questões até o cálculo de pontuação e exibição de resultados    */
-/* ═══════════════════════════════════════════════════════════════════ */
-
 /* ─────────────────────────────────────────────────────────────────── */
 /*  1. VARIÁVEL GLOBAL - Estado do Quiz                                */
 /* ─────────────────────────────────────────────────────────────────── */
@@ -66,29 +58,29 @@ function resetarEstadoQuiz() {
 // 5. Inicia o cronômetro
 async function inicializarQuiz() {
     try {
-        // PASSO 1: Limpar quiz anterior
+        //  Limpar quiz anterior
         resetarEstadoQuiz();
 
-        // PASSO 2: Obter usuário logado (se existir)
+        // Obter usuário logado (se existir)
         estadoQuiz.usuarioLogado = gerenciador.obterUsuarioLogado();
         atualizarInterfaceUsuario();
 
-        // PASSO 3: Obter categoria que o usuário selecionou
+        // Obter categoria que o usuário selecionou
         // Se não houver seleção, usa "tecnologia" como padrão
         const categoriaId = localStorage.getItem('quiz_categoria_selecionada') || 'tecnologia';
         console.log(`📚 Carregando quiz da categoria: ${categoriaId}`);
 
-        // PASSO 4: Carregar o arquivo JSON com todas as perguntas
+        // Carregar o arquivo JSON com todas as perguntas
         const resposta = await fetch('questions-categorias.json');
         const dados = await resposta.json();
 
-        // PASSO 5: Encontrar a categoria selecionada
+        // Encontrar a categoria selecionada
         const categoria = dados.categorias.find(c => c.id === categoriaId);
         if (!categoria) {
             throw new Error(`Categoria "${categoriaId}" não encontrada`);
         }
 
-        // PASSO 6: Colocar as perguntas no estado do quiz
+        // Colocar as perguntas no estado do quiz
         estadoQuiz.perguntas = categoria.perguntas;
         estadoQuiz.respostas = new Array(estadoQuiz.perguntas.length).fill(null);
         estadoQuiz.respostasNoTempo = new Array(estadoQuiz.perguntas.length).fill(true); // True = respondeu no tempo
@@ -96,7 +88,7 @@ async function inicializarQuiz() {
 
         console.log(`✅ ${estadoQuiz.perguntas.length} perguntas carregadas`);
 
-        // PASSO 7: Iniciar cronômetro e mostrar primeira pergunta
+        //  Iniciar cronômetro e mostrar primeira pergunta
         iniciarCronometro();
         renderizarPergunta();
 

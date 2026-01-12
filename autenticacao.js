@@ -1,13 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════════ */
-/*                   SISTEMA DE AUTENTICAÇÃO                           */
-/*                      (Login e Registro)                             */
-/*                                                                       */
-/* Este arquivo gerencia:                                              */
-/* - Registro de novos usuários                                        */
-/* - Login com validação                                              */
-/* - Sessões de usuários logados                                      */
-/* - Pontuação e recordes                                             */
-/* ═══════════════════════════════════════════════════════════════════ */
 
 /* ─────────────────────────────────────────────────────────────────── */
 /*  CLASSE: Gerenciador de Usuários                                   */
@@ -186,19 +176,6 @@ class GerenciadorUsuario {
 // Cria uma instância global do gerenciador que pode ser usada em todo o projeto
 const gerenciador = new GerenciadorUsuario();
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/*  FUNÇÕES DE AUTENTICAÇÃO                                            */
-/* ═══════════════════════════════════════════════════════════════════ */
-
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 1: Processar Formulário de Login                           */
-/* ─────────────────────────────────────────────────────────────────── */
-
-// Esta função:
-// 1. Recebe o formulário enviado pelo usuário
-// 2. Valida email e senha
-// 3. Tenta fazer login
-// 4. Redireciona se bem-sucedido ou mostra erro
 function processarLogin(evento) {
     // Evitar que o formulário recarregue a página
     evento.preventDefault();
@@ -210,46 +187,30 @@ function processarLogin(evento) {
     // PASSO 2: Limpar mensagens de erro anteriores
     limparErros();
 
-    // PASSO 3: Validar email
     if (!validarEmail(email)) {
         mostrarErro('erroEmailLogin', 'Email inválido');
         return;  // PARAR - não continuar
     }
-
-    // PASSO 4: Validar senha (não pode estar vazia)
     if (senha.length === 0) {
         mostrarErro('erroSenhaLogin', 'Digite sua senha');
         return;  // PARAR - não continuar
     }
-
     // PASSO 5: Chamar gerenciador para fazer login
     const resultado = gerenciador.fazerLogin(email, senha);
 
-    // PASSO 6: Se login bem-sucedido, redirecionar para menu
     if (resultado.sucesso) {
         setTimeout(() => {
             window.location.href = 'menu.html';
         }, 300);
     } else {
-        // Se falhou, mostrar mensagem de erro
         mostrarMensagemErroLogin(resultado.mensagem);
     }
 }
 
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 2: Processar Formulário de Registro                        */
-/* ─────────────────────────────────────────────────────────────────── */
-
-// Esta função:
-// 1. Recebe o formulário de novo usuário
-// 2. Valida todos os campos (7 validações)
-// 3. Registra novo usuário
-// 4. Redireciona para login
 function processarRegistro(evento) {
     // Evitar que o formulário recarregue a página
     evento.preventDefault();
 
-    // PASSO 1: Obter valores digitados no formulário
     const nome = document.getElementById('nomeRegistro').value.trim();
     const email = document.getElementById('emailRegistro').value.trim();
     const senha = document.getElementById('senhaRegistro').value.trim();
@@ -259,62 +220,65 @@ function processarRegistro(evento) {
     limparErros();
     limparMensagens();
 
-    // ✅ VALIDAÇÃO 1: Nome não pode estar vazio
+
     if (!nome || nome.length === 0) {
         mostrarErro('erroNomeRegistro', 'Digite seu nome');
         return;  // PARAR - não continuar
     }
-
-    // ✅ VALIDAÇÃO 2: Nome deve ter no mínimo 3 caracteres
     if (nome.length < 3) {
         mostrarErro('erroNomeRegistro', 'Nome deve ter no mínimo 3 caracteres');
         return;  // PARAR - não continuar
     }
-
-    // ✅ VALIDAÇÃO 3: Email não pode estar vazio
     if (!email || email.length === 0) {
         mostrarErro('erroEmailRegistro', 'Digite seu email');
         return;  // PARAR - não continuar
     }
-
     // ✅ VALIDAÇÃO 4: Email deve ter formato válido (exemplo@email.com)
     if (!validarEmail(email)) {
         mostrarErro('erroEmailRegistro', 'Email inválido');
         return;  // PARAR - não continuar
     }
-
-    // ✅ VALIDAÇÃO 5: Senha não pode estar vazia
     if (!senha || senha.length === 0) {
         mostrarErro('erroSenhaRegistro', 'Digite sua senha');
         return;  // PARAR - não continuar
     }
-
-    // ✅ VALIDAÇÃO 6: Senha deve ter no mínimo 6 caracteres
-    if (senha.length < 6) {
-        mostrarErro('erroSenhaRegistro', 'Senha deve ter no mínimo 6 caracteres');
+    if (senha.length < 8) {
+        mostrarErro('erroSenhaRegistro', 'Senha deve ter no mínimo 8 caracteres');
         return;  // PARAR - não continuar
     }
+    if (!senha.match(/[A-Z]/))
+    {
+        mostrarErro('erroSenhaRegistro', 'Tem que ter pelomenos um caracter maiúsculo');
+        return;
+    }
+    if (!senha.match(/[a-z]/))
+    {
+        mostrarErro('erroSenhaRegistro', 'Tem que ter pelomenos um caracter minuscúlo');
+        return;
+    }
+    if (!senha.match(/[0-9]/))
+    {
+        mostrarErro('erroSenhaRegistro', 'Tem que ter pelomenos um dígito');
+        return;
+    }
 
-    // ✅ VALIDAÇÃO 7: Confirmação de senha não pode estar vazia
     if (!confirmarSenha || confirmarSenha.length === 0) {
         mostrarErro('erroConfirmarSenha', 'Confirme sua senha');
         return;  // PARAR - não continuar
     }
-
-    // ✅ VALIDAÇÃO 8: As duas senhas devem ser iguais
     if (senha !== confirmarSenha) {
         mostrarErro('erroConfirmarSenha', 'As senhas não conferem');
         return;  // PARAR - não continuar
     }
 
-    // PASSO 3: Todas as validações passaram - Registrar usuário
+    // Todas as validações passaram - Registrar usuário
     const resultado = gerenciador.registrarUsuario({
         nome: nome,
         email: email,
         senha: senha
     });
 
-    // PASSO 4: Se registro bem-sucedido, redirecionar para login
+    //  Se registro bem-sucedido, redirecionar para login
     if (resultado.sucesso) {
         mostrarMensagemSucessoRegistro(resultado.mensagem);
         // Limpar formulário
@@ -329,13 +293,6 @@ function processarRegistro(evento) {
     }
 }
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/*  FUNÇÕES AUXILIARES DE VALIDAÇÃO                                    */
-/* ═══════════════════════════════════════════════════════════════════ */
-
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 3: Validar Email                                           */
-/* ─────────────────────────────────────────────────────────────────── */
 
 // Esta função verifica se o email tem o formato correto:
 // - Deve ter um texto antes do @
@@ -348,10 +305,6 @@ function validarEmail(email) {
     return regex.test(email);
 }
 
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 4: Mostrar Erro em Campo                                   */
-/* ─────────────────────────────────────────────────────────────────── */
-
 // Esta função coloca uma mensagem de erro embaixo de um campo do formulário
 // Exemplo: se email é inválido, mostra "Email inválido" embaixo do campo de email
 function mostrarErro(idElemento, mensagem) {
@@ -363,14 +316,6 @@ function mostrarErro(idElemento, mensagem) {
     }
 }
 
-/* ═══════════════════════════════════════════════════════════════════ */
-/*  FUNÇÕES DE EXIBIÇÃO DE MENSAGENS                                   */
-/* ═══════════════════════════════════════════════════════════════════ */
-
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 5: Mostrar Mensagem de Erro no Login                       */
-/* ─────────────────────────────────────────────────────────────────── */
-
 // Esta função mostra uma caixa com mensagem de erro geral na tela de login
 // Exemplo: "Email ou senha inválidos"
 function mostrarMensagemErroLogin(mensagem) {
@@ -381,9 +326,6 @@ function mostrarMensagemErroLogin(mensagem) {
     }
 }
 
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 6: Mostrar Mensagem de Erro no Registro                    */
-/* ─────────────────────────────────────────────────────────────────── */
 
 // Esta função mostra uma caixa com mensagem de erro geral na tela de registro
 // Exemplo: "Este email já está registrado"
@@ -395,10 +337,6 @@ function mostrarMensagemErroRegistro(mensagem) {
     }
 }
 
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 7: Mostrar Mensagem de Sucesso no Registro                 */
-/* ─────────────────────────────────────────────────────────────────── */
-
 // Esta função mostra uma caixa com mensagem de sucesso na tela de registro
 // Exemplo: "Conta criada com sucesso!"
 function mostrarMensagemSucessoRegistro(mensagem) {
@@ -408,10 +346,6 @@ function mostrarMensagemSucessoRegistro(mensagem) {
         elemento.classList.add('mostrar');  // Deixa visível
     }
 }
-
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 8: Limpar Mensagens de Erro dos Campos                     */
-/* ─────────────────────────────────────────────────────────────────── */
 
 // Esta função apaga todas as mensagens de erro dos campos do formulário
 // Usada quando o formulário é aberto novamente
@@ -423,10 +357,6 @@ function limparErros() {
         erro.textContent = '';
     });
 }
-
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 9: Limpar Mensagens Gerais                                 */
-/* ─────────────────────────────────────────────────────────────────── */
 
 // Esta função apaga as mensagens de erro e sucesso da página
 // Usada antes de processar um novo formulário
@@ -441,14 +371,6 @@ function limparMensagens() {
     // Remove a classe "mostrar" de cada sucesso (para esconder)
     mensagensSucesso.forEach(msg => msg.classList.remove('mostrar'));
 }
-
-/* ═══════════════════════════════════════════════════════════════════ */
-/*  FUNÇÃO GLOBAL DE LOGOUT                                            */
-/* ═══════════════════════════════════════════════════════════════════ */
-
-/* ─────────────────────────────────────────────────────────────────── */
-/*  FUNÇÃO 10: Fazer Logout                                           */
-/* ─────────────────────────────────────────────────────────────────── */
 
 // Esta função:
 // 1. Limpa os dados do usuário logado
