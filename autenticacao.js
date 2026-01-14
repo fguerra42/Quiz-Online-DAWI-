@@ -229,6 +229,10 @@ function processarRegistro(evento) {
         mostrarErro('erroNomeRegistro', 'Nome deve ter no mínimo 3 caracteres');
         return;  // PARAR - não continuar
     }
+    if (nome.match(/[0-9]/)){
+         mostrarErro('erroNomeRegistro', 'Nome não deve ter número');
+         return;
+    }
     if (!email || email.length === 0) {
         mostrarErro('erroEmailRegistro', 'Digite seu email');
         return;  // PARAR - não continuar

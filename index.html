@@ -104,13 +104,10 @@
             console.log('=== Página Principal Carregada ===');
             const usuarioLogado = localStorage.getItem('quiz_usuario_logado');
             console.log('Usuário logado na sessão:', usuarioLogado);
-
-            // Opcional: você pode remover esta verificação se quiser permitir
-            // que o quiz seja feito sem login
-            // if (!usuarioLogado) {
-            //     console.log('Nenhum usuário logado, redirecionando para login...');
-            //     window.location.href = 'login.html';
-            // }
+            if (!usuarioLogado) {
+                console.log('Nenhum usuário logado, redirecionando para login...');
+                 window.location.href = 'login.html';
+             }
         });
     </script>
 </body>

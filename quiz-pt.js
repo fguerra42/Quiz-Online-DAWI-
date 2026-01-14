@@ -12,7 +12,7 @@ const estadoQuiz = {
     tempoDecorrido: 0,          // Quantos segundos já passaram
     concluido: false,           // Quiz terminou?
     usuarioLogado: null,        // Dados do usuário que está fazendo o quiz
-    tempoRestantePergunta: 15,  // Tempo restante para responder (15 segundos)
+    tempoRestantePergunta: 20,  // Tempo restante para responder (15 segundos)
     intervaoCronometroPergunта: null, // ID do intervalo do timer por pergunta
     respostasNoTempo: []        // Flag para saber se respondeu no tempo (true/false por pergunta)
 };
@@ -32,7 +32,7 @@ function resetarEstadoQuiz() {
     estadoQuiz.tempoDecorrido = 0;      // Zera tempo decorrido
     estadoQuiz.concluido = false;       // Quiz não está concluído
     estadoQuiz.usuarioLogado = null;    // Sem usuário
-    estadoQuiz.tempoRestantePergunta = 15;  // Reseta tempo da pergunta
+    estadoQuiz.tempoRestantePergunta = 20;  // Reseta tempo da pergunta
     estadoQuiz.respostasNoTempo = [];   // Limpa flag de respostas no tempo
 
     // Se havia um cronômetro rodando, parar
@@ -140,7 +140,7 @@ function renderizarPergunta() {
     atualizarBarraProgresso();
 
     // Resetar tempo da pergunta quando renderiza pergunta nova
-    estadoQuiz.tempoRestantePergunta = 15;
+    estadoQuiz.tempoRestantePergunta = 20;
 
     // Se havia timer anterior, limpar
     if (estadoQuiz.intervaoCronometroPergunта) {
@@ -232,7 +232,7 @@ function iniciarTimerPergunta() {
         // Atualizar barra do progresso do tempo
         const circuloProgresso = document.querySelector('.circuloProgresso');
         if (circuloProgresso) {
-            const offset = 282.7 * (1 - (estadoQuiz.tempoRestantePergunta / 15));
+            const offset = 282.7 * (1 - (estadoQuiz.tempoRestantePergunta / 20));
             circuloProgresso.style.strokeDashoffset = offset;
         }
 
